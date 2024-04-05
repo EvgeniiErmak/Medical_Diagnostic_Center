@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "medical-diagnostic-center"
+version = "0.1.0"
+description = ""
+authors = ["Евгений Ермак <144560375+EvgeniiErmak@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.0.4"
+psycopg2-binary = "^2.9.9"
+django-crispy-forms = "^2.1"
+pillow = "^10.3.0"
+djangorestframework = "^3.15.1"
+channels = "^4.1.0"
+django-allauth = "^0.61.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

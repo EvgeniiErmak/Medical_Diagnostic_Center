@@ -1,3 +1,4 @@
+.
 ├── Medical_Diagnostic_Center
 │   ├── __init__.py
 │   ├── admin.py
@@ -17,6 +18,9 @@
 │   ├── admin.py
 │   ├── apps.py
 │   ├── models.py
+│   ├── templates
+│   │   └── authentication
+│   │       └── login.html
 │   ├── tests.py
 │   └── views.py
 ├── clinic
@@ -24,6 +28,9 @@
 │   ├── admin.py
 │   ├── apps.py
 │   ├── models.py
+│   ├── templates
+│   │   └── clinic
+│   │       └── about.html
 │   ├── tests.py
 │   └── views.py
 ├── db.sqlite3
@@ -53,3 +60,7 @@
 ├── project_structure.txt
 ├── pyproject.toml
 └── templates
+    ├── base.html
+    └── index.html
+
+13 directories, 51 files

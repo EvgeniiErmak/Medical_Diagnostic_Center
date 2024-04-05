@@ -1,39 +1,19 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Медицинский диагностический центр</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-</head>
-<body>
-    <nav class="container-fluid">
-        <ul>
-            <li><strong>Медицинский центр</strong></li>
-        </ul>
-        <ul>
-            <li><a href="#clinic">О клинике</a></li>
-            <li><a href="#appointments">Запись на прием</a></li>
-            <li><a href="#consultations" role="button">Онлайн-консультации</a></li>
-            <li><a href="#authentication" role="button">Вход</a></li> <!-- Добавлена ссылка для входа -->
-        </ul>
-    </nav>
-    <main class="container">
-        <div class="grid">
-            <section>
-                <hgroup>
-                    <h2>Добро пожаловать</h2>
-                    <h3>Ваш надежный партнер в области здравоохранения</h3>
-                </hgroup>
-                <p>Медицинский диагностический центр предлагает широкий спектр услуг...</p>
-                <figure>
-                    <img src="https://files.oaiusercontent.com/file-L87M7JYriqonGSGt1IvLOx6u" alt="Главная" /> <!-- Добавлено изображение -->
-                </figure>
-            </section>
-        </div>
-    </main>
-    <footer class="container">
-        <small><a href="#">Политика конфиденциальности</a> • <a href="#">Контакты</a></small>
-    </footer>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Главная - Медицинский диагностический центр{% endblock %}
+
+{% block content %}
+<div class="grid">
+    <section>
+        <hgroup>
+            <h2>Добро пожаловать в наш Медицинский Диагностический Центр!</h2>
+            <h3>Мы заботимся о каждом пациенте и предлагаем лучшие услуги в области медицинской диагностики.</h3>
+        </hgroup>
+        <p>В нашем центре вы найдете высококвалифицированных специалистов, передовое медицинское оборудование и дружелюбную атмосферу. Мы стремимся сделать ваш визит максимально комфортным и эффективным, предлагая широкий спектр диагностических услуг, включая лабораторные анализы, УЗИ, МРТ, и многое другое.</p>
+        <figure>
+            <img src="https://files.oaiusercontent.com/file-L87M7JYriqonGSGt1IvLOx6u" alt="Главная" />
+        </figure>
+        <p>Мы рады видеть вас в нашем центре и готовы предложить индивидуальный подход к решению именно ваших задач и забот. Здоровье наших пациентов - наш главный приоритет!</p>
+    </section>
+</div>
+{% endblock %}

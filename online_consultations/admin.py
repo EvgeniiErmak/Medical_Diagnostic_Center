@@ -1,3 +1,6 @@
-from django.contrib import admin
+# online_consultations/admin.py
 
-# Register your models here.
+from django.contrib import admin
+from .models import Consultation
+
+admin.site.register(Consultation)

@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ resource.title }}</h2>
+<p>Опубликовано: {{ resource.published_date }}</p>
+<div>{{ resource.content|linebreaks }}</div>
+{% endblock %}

@@ -1,3 +1,6 @@
-from django.contrib import admin
+# educational_resources/admin.py
 
-# Register your models here.
+from django.contrib import admin
+from .models import Resource
+
+admin.site.register(Resource)

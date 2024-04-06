@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Отзывы</h2>
+{% for feedback in feedbacks %}
+    <div>
+        <h3>{{ feedback.title }}</h3>
+        <p>{{ feedback.message }}</p>
+        <p>От: {{ feedback.user.username }}</p>
+    </div>
+{% endfor %}
+{% endblock %}

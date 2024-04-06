@@ -26,6 +26,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', clinic_views.index, name='index'),
     path('appointments/', include('appointments.urls')),
+    path('auth/', include('authentication.urls')),
 ]
 
 if settings.DEBUG:

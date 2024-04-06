@@ -9,18 +9,23 @@
 │   ├── __init__.py
 │   ├── admin.py
 │   ├── apps.py
+│   ├── forms.py
 │   ├── models.py
 │   ├── tests.py
+│   ├── urls.py
 │   └── views.py
 ├── authentication
 │   ├── __init__.py
 │   ├── admin.py
 │   ├── apps.py
+│   ├── forms.py
 │   ├── models.py
 │   ├── templates
 │   │   └── authentication
-│   │       └── login.html
+│   │       ├── login.html
+│   │       └── register.html
 │   ├── tests.py
+│   ├── urls.py
 │   └── views.py
 ├── clinic
 │   ├── __init__.py
@@ -29,8 +34,10 @@
 │   ├── models.py
 │   ├── templates
 │   │   └── clinic
-│   │       └── about.html
+│   │       ├── clinic_info.html
+│   │       └── specialist_detail.html
 │   ├── tests.py
+│   ├── urls.py
 │   └── views.py
 ├── db.sqlite3
 ├── educational_resources
@@ -38,22 +45,40 @@
 │   ├── admin.py
 │   ├── apps.py
 │   ├── models.py
+│   ├── templates
+│   │   └── educational_resources
+│   │       ├── resource_detail.html
+│   │       └── resources_list.html
 │   ├── tests.py
+│   ├── urls.py
 │   └── views.py
 ├── feedback
 │   ├── __init__.py
 │   ├── admin.py
 │   ├── apps.py
+│   ├── forms.py
 │   ├── models.py
+│   ├── templates
+│   │   └── feedback
+│   │       ├── faq_list.html
+│   │       ├── feedback_list.html
+│   │       └── submit_feedback.html
 │   ├── tests.py
+│   ├── urls.py
 │   └── views.py
 ├── manage.py
 ├── online_consultations
 │   ├── __init__.py
 │   ├── admin.py
 │   ├── apps.py
+│   ├── forms.py
 │   ├── models.py
+│   ├── templates
+│   │   └── online_consultations
+│   │       ├── consultation_list.html
+│   │       └── schedule_consultation.html
 │   ├── tests.py
+│   ├── urls.py
 │   └── views.py
 ├── poetry.lock
 ├── project_structure.txt

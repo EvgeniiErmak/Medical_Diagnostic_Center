@@ -17,3 +17,11 @@ def clinic_info(request):
 def specialist_detail(request, specialist_id):
     specialist = Specialist.objects.get(id=specialist_id)
     return render(request, 'clinic/specialist_detail.html', {'specialist': specialist})
+
+
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
+
+
+def contacts(request):
+    return render(request, 'contacts.html')

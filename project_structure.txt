@@ -1,3 +1,4 @@
+.
 ├── Medical_Diagnostic_Center
 │   ├── __init__.py
 │   ├── admin.py
@@ -71,6 +72,9 @@
 │   ├── urls.py
 │   └── views.py
 ├── manage.py
+├── media
+│   ├── Главная.jpeg
+│   └── Специалисты.jpeg
 ├── online_consultations
 │   ├── __init__.py
 │   ├── admin.py
@@ -89,4 +93,8 @@
 ├── pyproject.toml
 └── templates
     ├── base.html
-    └── index.html
+    ├── contacts.html
+    ├── index.html
+    └── privacy_policy.html
+
+22 directories, 76 files

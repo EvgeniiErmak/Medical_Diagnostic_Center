@@ -8,4 +8,6 @@ app_name = 'clinic'
 urlpatterns = [
     path('info/', views.clinic_info, name='clinic_info'),
     path('specialist/<int:specialist_id>/', views.specialist_detail, name='specialist_detail'),
+    path('privacy_policy/', views.privacy_policy, name='privacy_policy'),
+    path('contacts/', views.contacts, name='contacts'),
 ]

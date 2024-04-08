@@ -15,19 +15,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+# Medical_Diagnostic_Center/urls.py
+
 from django.conf.urls.static import static
 from clinic import views as clinic_views
 from django.urls import include, path
 from django.conf import settings
 from django.contrib import admin
 
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', clinic_views.index, name='index'),
-    path('appointments/', include('appointments.urls')),
-    path('auth/', include('authentication.urls')),
+    path('appointments/', include('appointments.urls', namespace='appointments')),
+    path('authentication/', include('authentication.urls')),
     path('clinic/', include('clinic.urls')),
+    path('feedback/', include('feedback.urls', namespace='feedback')),
+    path('educational_resources/', include('educational_resources.urls', namespace='educational_resources')),
+    path('online_consultations/', include('online_consultations.urls', namespace='online_consultations')),
+    # Добавьте другие пути приложений здесь
 ]
 
 if settings.DEBUG:

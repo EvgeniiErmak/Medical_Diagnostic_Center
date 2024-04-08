@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Список записей на прием</h2>
+<ul>
+    {% for appointment in appointments %}
+    <li>{{ appointment.datetime }} - {{ appointment.doctor }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

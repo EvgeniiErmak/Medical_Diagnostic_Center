@@ -11,6 +11,9 @@
 │   ├── apps.py
 │   ├── forms.py
 │   ├── models.py
+│   ├── templates
+│   │   └── appointments
+│   │       └── appointments_list.html
 │   ├── tests.py
 │   ├── urls.py
 │   └── views.py
@@ -23,6 +26,7 @@
 │   ├── templates
 │   │   └── authentication
 │   │       ├── login.html
+│   │       ├── logout.html
 │   │       └── register.html
 │   ├── tests.py
 │   ├── urls.py

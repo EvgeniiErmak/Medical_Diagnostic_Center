@@ -9,13 +9,20 @@
 <body>
     <nav class="container-fluid">
         <ul>
-            <li><strong>Медицинский центр</strong></li>
+            <li><strong><a href="/">Медицинский центр</a></strong></li>
         </ul>
         <ul>
-            <li><a href="#clinic">О клинике</a></li>
-            <li><a href="#appointments">Запись на прием</a></li>
-            <li><a href="#consultations" role="button">Онлайн-консультации</a></li>
-            <li><a href="#authentication" role="button">Вход</a></li>
+            <a href="{% url 'clinic:clinic_info' %}">О клинике</a>
+            <li><a href="{% url 'appointments:appointments_list' %}">Запись на прием</a></li>
+            <li><a href="{% url 'educational_resources:resources_list' %}">Образовательные ресурсы</a></li>
+            <li><a href="{% url 'feedback:feedback_list' %}">Отзывы</a></li>
+            <li><a href="{% url 'online_consultations:consultation_list' %}">Онлайн-консультации</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'authentication:logout' %}">Выйти {{ user.username }}</a></li>
+            {% else %}
+            <li><a href="{% url 'authentication:login' %}">Вход</a></li>
+            <li><a href="{% url 'authentication:register' %}">Регистрация</a></li>
+            {% endif %}
         </ul>
     </nav>
 

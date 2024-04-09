@@ -1,3 +1,4 @@
+.
 ├── Medical_Diagnostic_Center
 │   ├── __init__.py
 │   ├── admin.py
@@ -13,7 +14,9 @@
 │   ├── models.py
 │   ├── templates
 │   │   └── appointments
-│   │       └── appointments_list.html
+│   │       ├── appointments_list.html
+│   │       ├── book_appointment.html
+│   │       └── view_appointments.html
 │   ├── tests.py
 │   ├── urls.py
 │   └── views.py
@@ -97,3 +100,5 @@
     ├── contacts.html
     ├── index.html
     └── privacy_policy.html
+
+22 directories, 80 files

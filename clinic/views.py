@@ -1,7 +1,18 @@
 # clinic/views.py
 
-from django.shortcuts import render
-from .models import Specialist, Service
+from .models import Specialist, Service, Schedule
+from django.shortcuts import render, get_object_or_404
+
+
+def specialist_list(request):
+    specialists = Specialist.objects.all()
+    return render(request, 'clinic/specialist_list.html', {'specialists': specialists})
+
+
+def specialist_schedule(request, specialist_id):
+    specialist = get_object_or_404(Specialist, id=specialist_id)
+    schedules = Schedule.objects.filter(specialist=specialist)
+    return render(request, 'clinic/specialist_schedule.html', {'specialist': specialist, 'schedules': schedules})
 
 
 def index(request):

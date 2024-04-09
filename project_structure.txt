@@ -1,4 +1,3 @@
-.
 ├── Medical_Diagnostic_Center
 │   ├── __init__.py
 │   ├── admin.py
@@ -40,7 +39,9 @@
 │   ├── templates
 │   │   └── clinic
 │   │       ├── clinic_info.html
-│   │       └── specialist_detail.html
+│   │       ├── specialist_detail.html
+│   │       ├── specialist_list.html
+│   │       └── specialist_schedule.html
 │   ├── tests.py
 │   ├── urls.py
 │   └── views.py
@@ -96,5 +97,3 @@
     ├── contacts.html
     ├── index.html
     └── privacy_policy.html
-
-22 directories, 76 files

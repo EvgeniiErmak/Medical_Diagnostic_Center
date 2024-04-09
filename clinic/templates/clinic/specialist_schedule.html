@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>График работы: {{ specialist.user.get_full_name }}</h2>
+<ul>
+    {% for schedule in schedules %}
+    <li>{{ schedule.get_day_of_week_display }}: с {{ schedule.start_time }} до {{ schedule.end_time }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

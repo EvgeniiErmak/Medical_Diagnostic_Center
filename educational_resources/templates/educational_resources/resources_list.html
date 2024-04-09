@@ -1,13 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Образовательные материалы</h2>
+<h2>Образовательные ресурсы</h2>
 <ul>
-    {% for resource in resources %}
     <li>
-        <a href="{% url 'resource_detail' resource.id %}">{{ resource.title }}</a>
-        - {{ resource.published_date }}
+        <a href="{% url 'educational_resources:resource_detail_1' %}">Всё, что вам нужно знать о кровяном давлении</a>
+        <p>Краткий обзор основ кровяного давления и его влияния на здоровье.</p>
     </li>
-    {% endfor %}
+    <li>
+        <a href="{% url 'educational_resources:resource_detail_2' %}">Как предотвратить диабет: простые шаги для здоровой жизни</a>
+        <p>Советы по профилактике диабета через изменения образа жизни.</p>
+    </li>
+    <li>
+        <a href="{% url 'educational_resources:resource_detail_3' %}">Почему регулярный скрининг рака может спасти вашу жизнь</a>
+        <p>Значение скрининга рака для раннего обнаружения и лечения.</p>
+    </li>
+    <li>
+        <a href="{% url 'educational_resources:resource_detail_4' %}">Всё, что вам нужно знать о вакцинации</a>
+        <p>Полезная информация о вакцинации и её важности для общественного здравоохранения.</p>
+    </li>
+    <li>
+        <a href="{% url 'educational_resources:resource_detail_5' %}">Основы ухода за кожей: как сохранить кожу здоровой</a>
+        <p>Рекомендации по уходу за кожей для поддержания её здоровья и красоты.</p>
+    </li>
 </ul>
 {% endblock %}

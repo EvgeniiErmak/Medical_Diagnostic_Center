@@ -1,4 +1,3 @@
-.
 ├── Medical_Diagnostic_Center
 │   ├── __init__.py
 │   ├── admin.py
@@ -57,11 +56,6 @@
 │   ├── templates
 │   │   └── educational_resources
 │   │       ├── resource_detail.html
-│   │       ├── resource_detail_1.html
-│   │       ├── resource_detail_2.html
-│   │       ├── resource_detail_3.html
-│   │       ├── resource_detail_4.html
-│   │       ├── resource_detail_5.html
 │   │       └── resources_list.html
 │   ├── tests.py
 │   ├── urls.py
@@ -107,4 +101,4 @@
     ├── index.html
     └── privacy_policy.html
 
-22 directories, 86 files
+22 directories, 81 files

@@ -1,15 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{{ block.super }}
 <div class="resource-detail">
     <h2>{{ resource.title }}</h2>
     <p>Опубликовано: {{ resource.published_date }}</p>
+    <!-- Используем фильтр safe для сохранения HTML-форматирования, включая изображения -->
     <div class="content">
         {{ resource.content|safe }}
     </div>
-    {% if resource.video_url %}
+    {% if resource.video_file %}
+    <!-- Отображение локально загруженного видео -->
     <div class="video">
-        <iframe src="{{ resource.video_url }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <video width="800" height="450" controls>
+            <source src="{{ resource.video_file.url }}" type="video/mp4">
+            Ваш браузер не поддерживает элемент video.
+        </video>
+    </div>
+    {% elif resource.video_url %}
+    <!-- Отображение видео по ссылке -->
+    <div class="video">
+        <iframe src="{{ resource.video_url }}" width="800" height="450" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
     {% endif %}
 </div>

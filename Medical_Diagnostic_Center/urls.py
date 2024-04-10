@@ -15,6 +15,7 @@ urlpatterns = [
     path('feedback/', include('feedback.urls', namespace='feedback')),
     path('educational_resources/', include('educational_resources.urls', namespace='educational_resources')),
     path('online_consultations/', include('online_consultations.urls', namespace='online_consultations')),
+    path('summernote/', include('django_summernote.urls')),
     # Добавьте другие пути приложений здесь
 ]
 

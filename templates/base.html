@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Медицинский диагностический центр{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        .video-container video,
+        .video-container iframe,
+        .content img {
+            max-width: 800px;
+            max-height: 450px;
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
     <nav class="container-fluid">

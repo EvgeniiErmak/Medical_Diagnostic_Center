@@ -57,6 +57,11 @@
 │   ├── templates
 │   │   └── educational_resources
 │   │       ├── resource_detail.html
+│   │       ├── resource_detail_1.html
+│   │       ├── resource_detail_2.html
+│   │       ├── resource_detail_3.html
+│   │       ├── resource_detail_4.html
+│   │       ├── resource_detail_5.html
 │   │       └── resources_list.html
 │   ├── tests.py
 │   ├── urls.py
@@ -95,10 +100,11 @@
 ├── poetry.lock
 ├── project_structure.txt
 ├── pyproject.toml
+├── requirements.txt
 └── templates
     ├── base.html
     ├── contacts.html
     ├── index.html
     └── privacy_policy.html
 
-22 directories, 80 files
+22 directories, 86 files

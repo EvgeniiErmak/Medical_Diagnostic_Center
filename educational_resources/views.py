@@ -9,6 +9,6 @@ def resources_list(request):
     return render(request, 'educational_resources/resources_list.html', {'resources': resources})
 
 
-def resource_detail(request, resource_id):
-    resource = get_object_or_404(Resource, id=resource_id)
+def resource_detail(request, pk):
+    resource = get_object_or_404(Resource, pk=pk)
     return render(request, 'educational_resources/resource_detail.html', {'resource': resource})

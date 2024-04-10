@@ -23,11 +23,11 @@
         </ul>
         <ul>
             <a href="{% url 'clinic:clinic_info' %}">О клинике</a>
+            <li><a href="{% url 'clinic:specialist_list' %}">Наши специалисты</a></li>
             <li><a href="{% url 'appointments:appointments_list' %}">Запись на прием</a></li>
             <li><a href="{% url 'educational_resources:resources_list' %}">Образовательные ресурсы</a></li>
             <li><a href="{% url 'feedback:feedback_list' %}">Отзывы</a></li>
             <li><a href="{% url 'online_consultations:consultation_list' %}">Онлайн-консультации</a></li>
-            <li><a href="{% url 'clinic:specialist_list' %}">Наши специалисты</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'authentication:logout' %}">Выйти {{ user.username }}</a></li>
             {% else %}

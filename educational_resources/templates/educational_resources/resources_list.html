@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    hr {
+        border: none; /* Убираем стандартный бордюр */
+        height: 4px; /* Устанавливаем желаемую толщину линии */
+        background-color: #333; /* Цвет линии */
+        margin-top: 20px; /* Отступ сверху */
+        margin-bottom: 20px; /* Отступ снизу */
+    }
+</style>
+
 <h2>Образовательные Ресурсы</h2>
 <div class="resources">
     {% for resource in resources %}
@@ -8,6 +18,7 @@
         <h3><a href="{% url 'educational_resources:resource_detail' resource.id %}">{{ resource.title }}</a></h3>
         <p>{{ resource.description|truncatewords:20 }}</p>
         <p>Опубликовано: {{ resource.published_date }}</p>
+        <hr>
     </div>
     {% endfor %}
 </div>

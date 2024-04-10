@@ -7,7 +7,7 @@ from PIL import Image
 from django.core.files.base import ContentFile
 from io import BytesIO
 
-
+"""
 @receiver(post_save, sender=Resource)
 def resize_image(sender, instance, **kwargs):
     if instance.image:
@@ -17,3 +17,4 @@ def resize_image(sender, instance, **kwargs):
         buffer = BytesIO()
         img.save(buffer, format='JPEG')
         instance.image.save(instance.image.name, ContentFile(buffer.getvalue()), save=False)
+"""

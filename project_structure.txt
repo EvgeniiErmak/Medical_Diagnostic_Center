@@ -53,6 +53,7 @@
 │   ├── admin.py
 │   ├── apps.py
 │   ├── models.py
+│   ├── signals.py
 │   ├── templates
 │   │   └── educational_resources
 │   │       ├── resource_detail.html
@@ -75,9 +76,6 @@
 │   ├── urls.py
 │   └── views.py
 ├── manage.py
-├── media
-│   ├── Главная.jpeg
-│   └── Специалисты.jpeg
 ├── online_consultations
 │   ├── __init__.py
 │   ├── admin.py
@@ -101,4 +99,4 @@
     ├── index.html
     └── privacy_policy.html
 
-22 directories, 81 files
+21 directories, 80 files

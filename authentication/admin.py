@@ -7,19 +7,20 @@ from .models import CustomUser
 
 class UserAdmin(BaseUserAdmin):
     model = CustomUser
-    list_display = ['email', 'is_staff', 'is_active']
-    list_filter = ['email', 'is_staff', 'is_active']
+    list_display = ['email', 'full_name', 'date_of_birth', 'gender', 'country', 'is_staff', 'is_active']
+    list_filter = ['email', 'is_staff', 'is_active', 'gender', 'country']
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
+        (None, {'fields': ('email', 'password', 'full_name', 'date_of_birth', 'gender', 'country', 'address')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
+        ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')}
-         ),
+            'fields': ('email', 'password1', 'password2', 'full_name', 'date_of_birth', 'gender', 'country', 'address', 'is_staff', 'is_active')}
+        ),
     )
-    search_fields = ('email',)
+    search_fields = ('email', 'full_name',)
     ordering = ('email',)
 
 

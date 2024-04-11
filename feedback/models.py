@@ -11,7 +11,8 @@ class Feedback(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Feedback from {self.user.username}: {self.title}"
+        user_identifier = self.user.email  # or self.user.full_name if you have such a field
+        return f"Feedback from {user_identifier}: {self.title}"
 
 
 class FAQ(models.Model):

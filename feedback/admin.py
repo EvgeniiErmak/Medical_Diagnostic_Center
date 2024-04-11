@@ -6,6 +6,9 @@ from django.contrib import admin
 
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
-    list_display = ['title', 'user', 'created_at']  # Список полей, отображаемых в админке
+    list_display = ['action_checkbox', 'title', 'user', 'created_at']  # Список полей, отображаемых в админке
     search_fields = ['title', 'message', 'user__username']  # Поля, по которым можно выполнять поиск
     list_filter = ['created_at', 'user']  # Фильтры сбоку в админке
+
+
+admin.site.register(FAQ)

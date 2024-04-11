@@ -2,11 +2,15 @@
 
 {% block content %}
 <h2>Отзывы</h2>
+
+<a href="{% url 'feedback:submit_feedback' %}" class="submit-feedback-link">Оставить отзыв</a>
+
 {% for feedback in feedbacks %}
-    <div>
+    <div class="feedback-item">
         <h3>{{ feedback.title }}</h3>
         <p>{{ feedback.message }}</p>
         <p>От: {{ feedback.user.username }}</p>
+        <p>Дата: {{ feedback.created_at|date:"Y-m-d H:i" }}</p>
     </div>
 {% endfor %}
 {% endblock %}

@@ -1,7 +1,8 @@
 # feedback/views.py
 
-from django.shortcuts import render, redirect
 from .models import Feedback, FAQ
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from .forms import FeedbackForm
 
 
@@ -14,10 +15,22 @@ def submit_feedback(request):
     if request.method == 'POST':
         form = FeedbackForm(request.POST)
         if form.is_valid():
-            feedback = form.save(commit=False)
-            feedback.user = request.user
-            feedback.save()
-            return redirect('feedback_list')
+            # Проверяем наличие аналогичного отзыва от этого пользователя
+            existing_feedback = Feedback.objects.filter(
+                user=request.user,
+                title=form.cleaned_data['title'],
+                message=form.cleaned_data['message']
+            )
+            if existing_feedback.exists():
+                # Если такой отзыв уже существует, информируем пользователя
+                messages.error(request, 'Вы уже отправили аналогичный отзыв.')
+            else:
+                # Если аналогичного отзыва нет, сохраняем новый отзыв
+                feedback = form.save(commit=False)
+                feedback.user = request.user
+                feedback.save()
+                messages.success(request, 'Ваш отзыв успешно добавлен.')
+                return redirect('feedback:feedback_list')
     else:
         form = FeedbackForm()
     return render(request, 'feedback/submit_feedback.html', {'form': form})

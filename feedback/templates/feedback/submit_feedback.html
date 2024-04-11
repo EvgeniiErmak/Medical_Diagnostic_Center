@@ -1,10 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Оставить отзыв</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Отправить</button>
-</form>
+<style>
+    .submit-feedback-form {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .submit-feedback-form h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .submit-feedback-form button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-feedback-form button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="submit-feedback-form">
+    <h2>Оставить отзыв</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить</button>
+    </form>
+</div>
 {% endblock %}

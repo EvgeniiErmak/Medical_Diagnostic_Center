@@ -1,13 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    .specialists-link {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #4CAF50; /* Зелёный фон */
+        color: white; /* Белый текст */
+        text-decoration: none; /* Убираем подчёркивание */
+        transition: background-color 0.3s, transform 0.3s; /* Плавные переходы */
+    }
+
+    .specialists-link:hover, .specialists-link:focus {
+        background-color: #45a049; /* Темно-зелёный фон при наведении */
+        transform: scale(1.05); /* Небольшое увеличение размера */
+        text-decoration: underline; /* Добавляем подчёркивание при наведении */
+    }
+
+    .specialists-link h3 {
+        margin: 0; /* Убираем отступы внутри ссылки */
+    }
+</style>
+
 <h2>О нашем центре</h2>
 <p>Добро пожаловать в наш Медицинский Диагностический Центр! Мы заботимся о каждом пациенте и предлагаем лучшие услуги в области медицинской диагностики.</p>
-
-<figure>
-    <img src="/media/О%20нашем%20центре.jpeg" alt="О нашем центре.jpeg" />
-</figure>
-
 <h2>Наши Преимущества</h2>
 <p>Наш центр выделяется на фоне других учреждений благодаря:</p>
 <ul>
@@ -39,5 +56,11 @@
 
 <h2>Наши Специалисты</h2>
 <p>В нашем центре работают высококвалифицированные специалисты из различных областей медицины. Мы гордимся нашей командой специалистов, которые являются экспертами в своих областях и уверены в высоком качестве предоставляемых услуг.</p>
-<a href="{% url 'clinic:specialist_list' %}" class="button">Познакомьтесь с нашими специалистами</a>
+<a href="{% url 'clinic:specialist_list' %}" class="specialists-link">
+    <h3>Познакомьтесь с нашими специалистами</h3>
+</a>
+<p></p>
+<figure>
+    <img src="/media/Главная 2.webp" alt="О нашем центре" />
+</figure>
 {% endblock %}

@@ -1,18 +1,16 @@
 # authentication/forms.py
 
-from django import forms
-from django.contrib.auth.models import User
+from .models import CustomUser
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField()
-
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        model = CustomUser
+        fields = ['full_name', 'email', 'password1', 'password2', 'date_of_birth', 'gender', 'country', 'address']
 
 
 class UserLoginForm(AuthenticationForm):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    class Meta:
+        model = CustomUser
+        fields = ['email', 'password']

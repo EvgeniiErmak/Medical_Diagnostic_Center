@@ -1,8 +1,8 @@
 # authentication/views.py
 
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
 from .forms import UserRegisterForm, UserLoginForm
+from django.contrib.auth import login, authenticate, logout
 
 
 def register(request):
@@ -10,9 +10,7 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
+            user = authenticate(email=form.cleaned_data['email'], password=form.cleaned_data['password1'])
             login(request, user)
             return redirect('index')  # Перенаправление на главную страницу после регистрации
     else:
@@ -24,9 +22,7 @@ def user_login(request):
     if request.method == 'POST':
         form = UserLoginForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
+            user = authenticate(email=form.cleaned_data['username'], password=form.cleaned_data['password'])
             if user is not None:
                 login(request, user)
                 return redirect('index')  # Перенаправление на главную страницу после входа

@@ -27,6 +27,8 @@
 │   ├── models.py
 │   ├── templates
 │   │   └── authentication
+│   │       ├── activation_invalid.html
+│   │       ├── dashboard.html
 │   │       ├── login.html
 │   │       ├── logout.html
 │   │       └── register.html
@@ -99,4 +101,4 @@
     ├── index.html
     └── privacy_policy.html
 
-21 directories, 80 files
+21 directories, 82 files

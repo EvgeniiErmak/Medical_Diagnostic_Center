@@ -82,12 +82,14 @@ def user_logout(request):
 
 @login_required
 def dashboard(request):
+    edit = request.GET.get('edit', 'false') == 'true'  # Проверка параметра запроса для редактирования
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+            messages.success(request, "Ваши данные успешно обновлены.")
             return redirect('authentication:dashboard')
     else:
         form = UserProfileForm(instance=request.user)
 
-    return render(request, 'authentication/dashboard.html', {'form': form})
+    return render(request, 'authentication/dashboard.html', {'form': form, 'edit': edit})

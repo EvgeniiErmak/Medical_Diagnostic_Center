@@ -1,13 +1,13 @@
 # appointments/views.py
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 from .models import AppointmentSlot, Appointment
 from .forms import AppointmentForm
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def appointments_list(request):
-    # Замените 'user' на 'patient', чтобы отфильтровать записи по текущему пользователю
     appointments = Appointment.objects.filter(patient=request.user)
     return render(request, 'appointments/appointments_list.html', {'appointments': appointments})
 

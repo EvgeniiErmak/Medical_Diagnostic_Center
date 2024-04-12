@@ -14,6 +14,19 @@
             width: 100%;
             height: auto;
         }
+        .messages {
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #1094BEFF; /* цвет фона сообщения */
+            color: white; /* цвет текста сообщения */
+            text-align: center;
+            border-radius: 5px;
+            list-style: none; /* Убираем маркеры списка */
+        }
+        .messages li {
+            margin-bottom: 10px;
+            list-style: none; /* Убираем маркеры списка для каждого элемента списка */
+        }
     </style>
 </head>
 <body>
@@ -22,7 +35,7 @@
             <li><strong><a href="/">Медицинский центр</a></strong></li>
         </ul>
         <ul>
-            <a href="{% url 'clinic:clinic_info' %}">О клинике</a>
+            <li><a href="{% url 'clinic:clinic_info' %}">О клинике</a></li>
             <li><a href="{% url 'clinic:specialist_list' %}">Наши специалисты</a></li>
             <li><a href="{% url 'appointments:appointments_list' %}">Запись на прием</a></li>
             <li><a href="{% url 'educational_resources:resources_list' %}">Образовательные ресурсы</a></li>
@@ -31,13 +44,23 @@
             <li><a href="{% url 'online_consultations:consultation_list' %}">Онлайн-консультации</a></li>
             <li><a href="{% url 'authentication:dashboard' %}">Личный кабинет</a></li>
             {% if user.is_authenticated %}
-            <li><a href="{% url 'authentication:logout' %}">Выйти {{ user.username }}</a></li>
+            <li><a href="{% url 'authentication:logout' %}">Выйти ({{ user.get_full_name|default:user.email }})</a></li>
             {% else %}
             <li><a href="{% url 'authentication:login' %}">Вход</a></li>
             <li><a href="{% url 'authentication:register' %}">Регистрация</a></li>
             {% endif %}
         </ul>
     </nav>
+
+    {% if messages %}
+    <div class="container">
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 
     <main class="container">
         {% block content %}

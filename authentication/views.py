@@ -9,6 +9,7 @@ from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_str, force_bytes
+from django.contrib import messages
 from .models import CustomUser
 
 account_activation_token = PasswordResetTokenGenerator()
@@ -25,10 +26,9 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        # Перенаправление на страницу успешной активации или дашборд
+        messages.success(request, 'Ваш аккаунт был успешно активирован!')
         return redirect('authentication:dashboard')
     else:
-        # Перенаправление на страницу ошибки активации
         return render(request, 'authentication/activation_invalid.html')
 
 
@@ -38,8 +38,8 @@ def send_activation_email(user, request):
     activation_link = request.build_absolute_uri(
         reverse('authentication:activate', kwargs={'uidb64': uid, 'token': token})
     )
-    subject = 'Activate your account'
-    message = f'Hi {user.full_name}, please use this link to activate your account: {activation_link}'
+    subject = 'Активация аккаунта'
+    message = f'Привет {user.full_name}, пожалуйста, активируй свой аккаунт, перейдя по следующей ссылке: {activation_link}'
     send_mail(subject, message, settings.EMAIL_HOST_USER, [user.email])
 
 
@@ -51,6 +51,7 @@ def register(request):
             user.is_active = False  # Пользователь не активен до подтверждения по email
             user.save()
             send_activation_email(user, request)  # Отправка письма для активации
+            messages.info(request, 'Пожалуйста, подтвердите вашу регистрацию, проверив вашу электронную почту.')
             return redirect('authentication:login')
     else:
         form = UserRegisterForm()
@@ -61,7 +62,9 @@ def user_login(request):
     if request.method == 'POST':
         form = UserLoginForm(request, data=request.POST)
         if form.is_valid():
-            user = authenticate(email=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
                 return redirect('authentication:dashboard')  # Перенаправление на панель пользователя после входа
@@ -76,7 +79,6 @@ def user_logout(request):
 
 
 def dashboard(request):
-    # Предполагаем, что у модели пользователя есть поля для медицинских данных
     if not request.user.is_authenticated:
         return redirect('authentication:login')
     return render(request, 'authentication/dashboard.html', {

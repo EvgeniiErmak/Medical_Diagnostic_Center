@@ -51,7 +51,7 @@ def register(request):
             user.is_active = False  # Пользователь не активен до подтверждения по email
             user.save()
             send_activation_email(user, request)  # Отправка письма для активации
-            messages.info(request, 'Пожалуйста, подтвердите вашу регистрацию, проверив вашу электронную почту.')
+            messages.info(request, 'Пожалуйста, подтвердите вашу регистрацию, проверив указанную электронную почту.')
             return redirect('authentication:login')
     else:
         form = UserRegisterForm()

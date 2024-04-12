@@ -34,7 +34,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     middle_name = models.CharField(max_length=150, default='', verbose_name='Отчество', blank=True)
     date_of_birth = models.DateField(verbose_name='Дата рождения', null=True, blank=True)
     age = models.PositiveIntegerField(verbose_name='Возраст', null=True, blank=True)
-    gender = models.CharField(max_length=10, choices=(('male', 'Мужской'), ('female', 'Женский')), verbose_name="Пол", null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=(('Мужской', 'Мужской'), ('Женский', 'Женский')), verbose_name="Пол", null=True, blank=True)
     citizenship = models.CharField(max_length=150, verbose_name='Гражданство', blank=True)
     residence = models.CharField(max_length=255, verbose_name='Место жительства', blank=True)
     medical_data = models.TextField(verbose_name="Медицинские данные", blank=True)

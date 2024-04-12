@@ -19,6 +19,7 @@ django-bootstrap4 = "^24.1"
 django-storages = "^1.14.2"
 django-ckeditor-5 = "^0.2.12"
 django-summernote = "^0.8.20.0"
+django-countries = "^7.6.1"
 
 
 [build-system]

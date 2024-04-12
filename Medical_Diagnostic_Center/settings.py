@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "educational_resources",
     "online_consultations",
-    'django_summernote',
+    "django_summernote",
     "authentication",
     "appointments",
     "crispy_forms",

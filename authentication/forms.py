@@ -1,8 +1,10 @@
 # authentication/forms.py
 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import CustomUser
 from django import forms
+from django.forms import SelectDateWidget
+from .models import CustomUser
+import datetime
 
 
 class UserRegisterForm(UserCreationForm):
@@ -21,6 +23,11 @@ class UserLoginForm(AuthenticationForm):
 
 
 class UserProfileForm(forms.ModelForm):
+    date_of_birth = forms.DateField(
+        widget=SelectDateWidget(years=range(1900, datetime.datetime.now().year+1)),
+        required=False
+    )
+
     class Meta:
         model = CustomUser
         fields = [

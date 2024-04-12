@@ -1,6 +1,5 @@
 # authentication/views.py
 
-from django.shortcuts import render, redirect
 from .forms import UserRegisterForm, UserLoginForm
 from django.contrib.auth import login, authenticate, logout
 from django.core.mail import send_mail
@@ -11,6 +10,9 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_str, force_bytes
 from django.contrib import messages
 from .models import CustomUser
+from django.shortcuts import render, redirect
+from .forms import UserProfileForm
+from django.contrib.auth.decorators import login_required
 
 account_activation_token = PasswordResetTokenGenerator()
 
@@ -39,7 +41,7 @@ def send_activation_email(user, request):
         reverse('authentication:activate', kwargs={'uidb64': uid, 'token': token})
     )
     subject = 'Активация аккаунта'
-    message = f'Привет {user.full_name}, пожалуйста, активируй свой аккаунт, перейдя по следующей ссылке: {activation_link}'
+    message = f'Здравствуйте, {user.first_name}! Пожалуйста, активируйте свой аккаунт, перейдя по следующей ссылке: {activation_link}'
     send_mail(subject, message, settings.EMAIL_HOST_USER, [user.email])
 
 
@@ -78,9 +80,14 @@ def user_logout(request):
     return redirect('index')  # Перенаправление на главную страницу после выхода
 
 
+@login_required
 def dashboard(request):
-    if not request.user.is_authenticated:
-        return redirect('authentication:login')
-    return render(request, 'authentication/dashboard.html', {
-        'user': request.user
-    })
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('authentication:dashboard')
+    else:
+        form = UserProfileForm(instance=request.user)
+
+    return render(request, 'authentication/dashboard.html', {'form': form})

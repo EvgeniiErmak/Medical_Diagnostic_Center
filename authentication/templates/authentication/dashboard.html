@@ -3,10 +3,17 @@
 {% block content %}
 <div class="dashboard">
     <h1>Личный кабинет</h1>
-    <p>Привет, {{ user.full_name }}!</p>
-    <h2>Медицинские данные</h2>
+    <p>Здравствуйте {{ user.first_name }}!</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Сохранить изменения</button>
+    </form>
+
+    <h3>Медицинские данные</h3>
     <p>{{ user.medical_data }}</p>
-    <h2>История диагностик</h2>
+    <h3>История диагностик</h3>
     <p>{{ user.diagnostic_history }}</p>
     <a href="{% url 'authentication:logout' %}">Выйти</a>
 </div>

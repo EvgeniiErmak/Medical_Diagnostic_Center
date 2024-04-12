@@ -44,7 +44,7 @@
             <li><a href="{% url 'online_consultations:consultation_list' %}">Онлайн-консультации</a></li>
             <li><a href="{% url 'authentication:dashboard' %}">Личный кабинет</a></li>
             {% if user.is_authenticated %}
-            <li><a href="{% url 'authentication:logout' %}">Выйти ({{ user.get_full_name|default:user.email }})</a></li>
+            <li><a href="{% url 'authentication:logout' %}">Выйти</a></li>
             {% else %}
             <li><a href="{% url 'authentication:login' %}">Вход</a></li>
             <li><a href="{% url 'authentication:register' %}">Регистрация</a></li>

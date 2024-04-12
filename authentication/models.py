@@ -29,13 +29,16 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    full_name = models.CharField(max_length=150, verbose_name="ФИО", default="Не указано")
-    date_of_birth = models.DateField(verbose_name="Дата рождения", null=True, blank=True)
+    last_name = models.CharField(max_length=150, default='', verbose_name='Фамилия')
+    first_name = models.CharField(max_length=150, default='', verbose_name='Имя')
+    middle_name = models.CharField(max_length=150, default='', verbose_name='Отчество', blank=True)
+    date_of_birth = models.DateField(verbose_name='Дата рождения', null=True, blank=True)
+    age = models.PositiveIntegerField(verbose_name='Возраст', null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=(('male', 'Мужской'), ('female', 'Женский')), verbose_name="Пол", null=True, blank=True)
+    citizenship = models.CharField(max_length=150, verbose_name='Гражданство', blank=True)
+    residence = models.CharField(max_length=255, verbose_name='Место жительства', blank=True)
     medical_data = models.TextField(verbose_name="Медицинские данные", blank=True)
     diagnostic_history = models.TextField(verbose_name="История диагностик", blank=True)
-    gender = models.CharField(max_length=10, choices=(('male', 'Мужской'), ('female', 'Женский')), verbose_name="Пол", null=True, blank=True)
-    country = models.CharField(max_length=50, verbose_name="Страна", default="Не указано")
-    address = models.TextField(verbose_name="Адрес", default="Не указано")
     email = models.EmailField(_('email address'), unique=True)
     is_staff = models.BooleanField(_('staff status'), default=False)
     is_active = models.BooleanField(_('active'), default=False)  # По умолчанию пользователь не активирован

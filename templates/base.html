@@ -29,6 +29,7 @@
             <li><a href="{% url 'feedback:faq_list' %}">FAQ - Вопрос-Ответ</a></li>
             <li><a href="{% url 'feedback:feedback_list' %}">Отзывы</a></li>
             <li><a href="{% url 'online_consultations:consultation_list' %}">Онлайн-консультации</a></li>
+            <li><a href="{% url 'authentication:dashboard' %}">Личный кабинет</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'authentication:logout' %}">Выйти {{ user.username }}</a></li>
             {% else %}

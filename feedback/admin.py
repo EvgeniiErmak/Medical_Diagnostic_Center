@@ -11,4 +11,6 @@ class FeedbackAdmin(admin.ModelAdmin):
     list_filter = ['created_at', 'user']  # Фильтры сбоку в админке
 
 
-admin.site.register(FAQ)
+@admin.register(FAQ)
+class FAQAdmin(admin.ModelAdmin):
+    list_display = ('question', )

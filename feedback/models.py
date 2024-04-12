@@ -11,13 +11,13 @@ class Feedback(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        user_identifier = self.user.email  # or self.user.full_name if you have such a field
+        user_identifier = self.user.email
         return f"Feedback from {user_identifier}: {self.title}"
 
 
 class FAQ(models.Model):
-    question = models.CharField(max_length=255)
-    answer = models.TextField()
+    question = models.TextField(verbose_name="Вопрос")
+    answer = models.TextField(verbose_name="Ответ")
 
     def __str__(self):
         return self.question

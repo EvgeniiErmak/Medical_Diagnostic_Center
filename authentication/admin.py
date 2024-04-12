@@ -10,14 +10,14 @@ class UserAdmin(BaseUserAdmin):
     list_display = ['email', 'first_name', 'date_of_birth', 'gender', 'citizenship', 'is_staff', 'is_active']
     list_filter = ['email', 'is_staff', 'is_active', 'gender', 'citizenship']
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'first_name', 'date_of_birth', 'gender', 'citizenship', 'address')}),
+        (None, {'fields': ('email', 'password', 'first_name', 'date_of_birth', 'gender', 'citizenship', 'residence')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
         ('Important dates', {'fields': ('last_login',)}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'first_name', 'date_of_birth', 'gender', 'citizenship', 'address', 'is_staff', 'is_active')}
+            'fields': ('email', 'password1', 'password2', 'first_name', 'date_of_birth', 'gender', 'citizenship', 'residence', 'is_staff', 'is_active')}
         ),
     )
     search_fields = ('email', 'first_name',)

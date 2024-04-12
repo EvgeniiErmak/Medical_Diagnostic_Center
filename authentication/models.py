@@ -3,6 +3,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
 
 class CustomUserManager(BaseUserManager):
@@ -37,7 +38,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     address = models.TextField(verbose_name="Адрес", default="Не указано")
     email = models.EmailField(_('email address'), unique=True)
     is_staff = models.BooleanField(_('staff status'), default=False)
-    is_active = models.BooleanField(_('active'), default=True)
+    is_active = models.BooleanField(_('active'), default=False)  # По умолчанию пользователь не активирован
+    activation_date = models.DateTimeField(default=timezone.now)
 
     objects = CustomUserManager()
 

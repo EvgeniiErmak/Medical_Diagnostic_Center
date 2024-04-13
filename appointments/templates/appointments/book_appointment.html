@@ -1,2 +1,20 @@
 <!-- appointments/templates/appointments/book_appointment.html -->
 
+{% extends 'base.html' %}
+
+{% block content %}
+<div id='calendar'></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        events: [
+            // Динамически загружаемые данные о слотах
+        ]
+    });
+    calendar.render();
+});
+</script>
+{% endblock %}

@@ -1,3 +1,5 @@
+<!-- clinic/templates/clinic/specialist_list.html -->
+
 {% extends 'base.html' %}
 
 {% block content %}
@@ -9,6 +11,18 @@
         margin-top: 20px; /* Отступ сверху */
         margin-bottom: 20px; /* Отступ снизу */
     }
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px 0;
+        background-color: #007BFF;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .button:hover {
+        background-color: #0056b3;
+    }
 </style>
 
 <h2>Наши специалисты</h2>
@@ -18,44 +32,18 @@
 </figure>
 
 <div class="specialists">
+    {% for specialist in specialists %}
     <div class="specialist">
-        <h3>Доктор Анна Иванова</h3>
-        <p>Возраст: 45</p>
-        <p>Специализация: Кардиология</p>
-        <p>Квалификация: Доктор медицинских наук, профессор</p>
+        <h3>Доктор {{ specialist.user.get_full_name }}</h3>
+        <p>Возраст: {{ specialist.user.profile.age }}</p> <!-- Предположение о структуре данных -->
+        <p>Специализация: {{ specialist.specialization }}</p>
+        <p>Квалификация: {{ specialist.qualifications }}</p>
+        <!-- Ссылка для записи на прием -->
+        <a href="{% url 'appointments:book_appointment' specialist_id=specialist.id %}" class="button">Записаться на прием</a>
     </div>
-    <hr> <!-- Горизонтальная черта -->
-
-    <div class="specialist">
-        <h3>Доктор Ольга Петрова</h3>
-        <p>Возраст: 38</p>
-        <p>Специализация: Неврология</p>
-        <p>Квалификация: Кандидат медицинских наук</p>
-    </div>
-    <hr> <!-- Горизонтальная черта -->
-
-    <div class="specialist">
-        <h3>Доктор Екатерина Сидорова</h3>
-        <p>Возраст: 50</p>
-        <p>Специализация: Эндокринология</p>
-        <p>Квалификация: Доктор медицинских наук</p>
-    </div>
-    <hr> <!-- Горизонтальная черта -->
-
-    <div class="specialist">
-        <h3>Доктор Александр Кузнецов</h3>
-        <p>Возраст: 40</p>
-        <p>Специализация: Ортопедия</p>
-        <p>Квалификация: Кандидат медицинских наук</p>
-    </div>
-    <hr> <!-- Горизонтальная черта -->
-
-    <div class="specialist">
-        <h3>Доктор Михаил Лебедев</h3>
-        <p>Возраст: 55</p>
-        <p>Специализация: Хирургия</p>
-        <p>Квалификация: Доктор медицинских наук, профессор</p>
-    </div>
-    <!-- Не нужно добавлять <hr> после последнего специалиста -->
+    {% if not forloop.last %}
+    <hr>
+    {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}

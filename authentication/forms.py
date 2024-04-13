@@ -1,6 +1,7 @@
 # authentication/forms.py
 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
 from django.forms import SelectDateWidget
 from .models import CustomUser
@@ -45,3 +46,8 @@ class UserProfileForm(forms.ModelForm):
             'citizenship': 'Гражданство',
             'residence': 'Место жительства'
         }
+
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    # Здесь можно настроить виджеты, если это необходимо
+    pass

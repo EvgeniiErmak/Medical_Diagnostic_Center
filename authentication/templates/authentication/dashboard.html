@@ -6,16 +6,20 @@
 <div class="dashboard">
     <h1>Личный кабинет</h1>
     <p>Здравствуйте, {{ user.first_name }}!</p>
-    {% if not edit %}
-    <a href="{% url 'authentication:dashboard' %}?edit=true" class="button">Редактировать данные</a>
-    {% else %}
+
+    <!-- Редактирование профиля -->
+    {% if edit %}
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Сохранить изменения</button>
     </form>
+    {% else %}
+    <a href="{% url 'authentication:dashboard' %}?edit=true" class="button">Редактировать данные</a>
     {% endif %}
 
+    <!-- Персональные данные -->
+    <section>
         <h3>Персональные данные</h3>
         <p>Фамилия: {{ user.last_name }}</p>
         <p>Имя: {{ user.first_name }}</p>
@@ -25,10 +29,28 @@
         <p>Пол: {{ user.gender }}</p>
         <p>Гражданство: {{ user.citizenship }}</p>
         <p>Место жительства: {{ user.residence }}</p>
+    </section>
+
+    <!-- Медицинские данные -->
+    <section>
         <h3>Медицинские данные</h3>
         <p>{{ user.medical_data }}</p>
+    </section>
+
+    <!-- История диагностик -->
+    <section>
         <h3>История диагностик</h3>
         <p>{{ user.diagnostic_history }}</p>
+    </section>
+
+    <!-- Смена пароля -->
+    <section>
+        <form method="post" action="{% url 'authentication:password_change' %}">
+            {% csrf_token %}
+            {{ password_change_form.as_p }}
+            <button type="submit">Изменить пароль</button>
+        </form>
+    </section>
 
     <a href="{% url 'authentication:logout' %}">Выйти</a>
 </div>

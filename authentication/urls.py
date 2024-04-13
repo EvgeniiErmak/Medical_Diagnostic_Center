@@ -1,9 +1,9 @@
 # authentication/urls.py
 
 from django.urls import path
-from django.contrib.auth.views import PasswordResetCompleteView
+from django.contrib.auth.views import PasswordResetCompleteView, PasswordChangeView
 from .views import register, user_login, user_logout, dashboard, activate, CustomPasswordResetView, \
-    CustomPasswordResetConfirmView
+    CustomPasswordResetConfirmView, CustomPasswordChangeView
 
 app_name = 'authentication'
 
@@ -23,4 +23,8 @@ urlpatterns = [
     path('reset/complete/',
          PasswordResetCompleteView.as_view(template_name='authentication/password_reset_complete.html'),
          name='password_reset_complete'),
+    path('password_change/', CustomPasswordChangeView.as_view(), name='password_change'),
+    path('password_change/done/',
+         PasswordChangeView.as_view(template_name='authentication/password_change_done.html'),
+         name='password_change_done'),
 ]

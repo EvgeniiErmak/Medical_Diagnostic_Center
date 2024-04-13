@@ -1,21 +1,20 @@
 # authentication/views.py
 
-from .forms import UserRegisterForm, UserLoginForm
-from django.contrib.auth import login, authenticate, logout
-from django.core.mail import send_mail
-from django.urls import reverse
-from django.conf import settings
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordChangeView
+from .forms import UserRegisterForm, UserLoginForm, CustomPasswordChangeForm, UserProfileForm
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.utils.encoding import force_str, force_bytes
-from django.contrib import messages
-from .models import CustomUser
-from django.shortcuts import render, redirect
-from .forms import UserProfileForm
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
+from django.utils.encoding import force_str, force_bytes
 from django.contrib.auth.forms import PasswordResetForm
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail
 from django.urls import reverse_lazy
+from django.contrib import messages
+from django.conf import settings
+from django.urls import reverse
+from .models import CustomUser
 
 account_activation_token = PasswordResetTokenGenerator()
 
@@ -108,3 +107,14 @@ class CustomPasswordResetView(PasswordResetView):
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'authentication/password_reset_confirm.html'
     success_url = reverse_lazy('authentication:password_reset_complete')
+
+
+class CustomPasswordChangeView(PasswordChangeView):
+    form_class = CustomPasswordChangeForm
+    template_name = 'authentication/dashboard.html'
+    success_url = reverse_lazy('authentication:password_change_done')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['password_change_form'] = context.get('form')
+        return context

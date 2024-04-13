@@ -51,3 +51,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    def get_full_name(self):
+        """Возвращает полное имя пользователя."""
+        full_name = f'{self.first_name} {self.middle_name} {self.last_name}'.strip()
+        return full_name.replace("  ", " ")  # Убедимся, что лишние пробелы удалены
+
+    def get_short_name(self):
+        """Возвращает краткое имя пользователя, обычно первое имя."""
+        return self.first_name

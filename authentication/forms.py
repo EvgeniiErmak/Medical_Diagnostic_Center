@@ -8,7 +8,6 @@ import datetime
 
 
 class UserRegisterForm(UserCreationForm):
-    full_name = forms.CharField(required=True, label='ФИО')
     email = forms.EmailField(required=True, label='Электронная почта')
 
     class Meta(UserCreationForm.Meta):

@@ -102,4 +102,4 @@ class CustomPasswordResetView(PasswordResetView):
     form_class = PasswordResetForm
     template_name = 'authentication/password_reset_form.html'
     email_template_name = 'authentication/password_reset_email.html'
-    success_url = reverse_lazy('authentication:password_reset_done')
+    success_url = reverse_lazy('authentication:password_reset_complete')

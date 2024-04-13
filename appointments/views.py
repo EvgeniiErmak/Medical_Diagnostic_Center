@@ -1,8 +1,8 @@
 # appointments/views.py
 
 from .models import AppointmentSlot, Appointment
+from django.shortcuts import render, get_object_or_404, redirect
 from .forms import AppointmentForm
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 
@@ -13,8 +13,8 @@ def appointments_list(request):
 
 
 @login_required
-def book_appointment(request, slot_id):
-    slot = AppointmentSlot.objects.get(id=slot_id)
+def book_appointment(request, slot_id):  # Используем slot_id вместо specialist_id
+    slot = get_object_or_404(AppointmentSlot, id=slot_id)
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
         if form.is_valid():
@@ -22,8 +22,6 @@ def book_appointment(request, slot_id):
             appointment.patient = request.user
             appointment.slot = slot
             appointment.save()
-            slot.is_booked = True
-            slot.save()
             return redirect('appointments:view_appointments')
     else:
         form = AppointmentForm()

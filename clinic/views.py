@@ -2,10 +2,18 @@
 
 from .models import Specialist, Service, Schedule
 from django.shortcuts import render, get_object_or_404
+from appointments.models import AppointmentSlot
+from django.db.models import Subquery, OuterRef
 
 
 def specialist_list(request):
-    specialists = Specialist.objects.all()
+    specialists = Specialist.objects.annotate(
+        available_slot_id=Subquery(
+            AppointmentSlot.objects.filter(
+                specialist=OuterRef('pk'), is_booked=False
+            ).values('id')[:1]
+        )
+    )
     return render(request, 'clinic/specialist_list.html', {'specialists': specialists})
 
 

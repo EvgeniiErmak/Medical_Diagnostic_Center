@@ -13,7 +13,7 @@ from .models import CustomUser
 from django.shortcuts import render, redirect
 from .forms import UserProfileForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 from django.contrib.auth.forms import PasswordResetForm
 from django.urls import reverse_lazy
 
@@ -103,3 +103,8 @@ class CustomPasswordResetView(PasswordResetView):
     template_name = 'authentication/password_reset_form.html'
     email_template_name = 'authentication/password_reset_email.html'
     success_url = reverse_lazy('authentication:password_reset_done')
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'authentication/password_reset_confirm.html'
+    success_url = reverse_lazy('authentication:password_reset_complete')

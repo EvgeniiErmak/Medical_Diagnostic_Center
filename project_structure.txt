@@ -1,3 +1,4 @@
+.
 ├── Medical_Diagnostic_Center
 │   ├── __init__.py
 │   ├── admin.py
@@ -31,6 +32,7 @@
 │   │       ├── dashboard.html
 │   │       ├── login.html
 │   │       ├── logout.html
+│   │       ├── password_change_done.html
 │   │       ├── password_reset_complete.html
 │   │       ├── password_reset_confirm.html
 │   │       ├── password_reset_done.html
@@ -106,4 +108,4 @@
     ├── index.html
     └── privacy_policy.html
 
-21 directories, 87 files
+21 directories, 88 files

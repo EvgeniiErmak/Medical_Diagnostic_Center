@@ -13,6 +13,9 @@ from .models import CustomUser
 from django.shortcuts import render, redirect
 from .forms import UserProfileForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.forms import PasswordResetForm
+from django.urls import reverse_lazy
 
 account_activation_token = PasswordResetTokenGenerator()
 
@@ -93,3 +96,10 @@ def dashboard(request):
         form = UserProfileForm(instance=request.user)
 
     return render(request, 'authentication/dashboard.html', {'form': form, 'edit': edit})
+
+
+class CustomPasswordResetView(PasswordResetView):
+    form_class = PasswordResetForm
+    template_name = 'authentication/password_reset_form.html'
+    email_template_name = 'authentication/password_reset_email.html'
+    success_url = reverse_lazy('authentication:password_reset_done')

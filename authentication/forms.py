@@ -24,6 +24,7 @@ class UserLoginForm(AuthenticationForm):
 
 class UserProfileForm(forms.ModelForm):
     date_of_birth = forms.DateField(
+        label='Дата рождения',
         widget=SelectDateWidget(years=range(1900, datetime.datetime.now().year+1)),
         required=False
     )

@@ -21,4 +21,4 @@ class Appointment(models.Model):
     issue = models.TextField()
 
     def __str__(self):
-        return f"Appointment for {self.patient} with {self.slot.doctor} on {self.slot.start_time}"
+        return f"Appointment for {self.patient} with {self.slot.specialist} on {self.slot.start_time}"

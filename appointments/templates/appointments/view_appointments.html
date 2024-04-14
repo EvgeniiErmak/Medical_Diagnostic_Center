@@ -1,2 +1,13 @@
 <!-- appointments/templates/appointments/view_appointments.html -->
 
+{% extends 'base.html' %}
+{% block content %}
+<h2>Ваши записи</h2>
+<ul>
+{% for appointment in appointments %}
+    <li>{{ appointment.slot.start_time }} с {{ appointment.slot.specialist }}</li>
+{% empty %}
+    <li>У вас нет предстоящих записей.</li>
+{% endfor %}
+</ul>
+{% endblock %}

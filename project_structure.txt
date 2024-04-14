@@ -16,6 +16,8 @@
 │   │   └── appointments
 │   │       ├── appointments_list.html
 │   │       ├── book_appointment.html
+│   │       ├── book_appointment_by_query.html
+│   │       ├── fetch_slots.html
 │   │       └── view_appointments.html
 │   ├── tests.py
 │   ├── urls.py
@@ -57,6 +59,7 @@
 │   ├── urls.py
 │   └── views.py
 ├── db.sqlite3
+├── db_backup.json
 ├── educational_resources
 │   ├── __init__.py
 │   ├── admin.py
@@ -108,4 +111,4 @@
     ├── index.html
     └── privacy_policy.html
 
-21 directories, 88 files
+21 directories, 91 files

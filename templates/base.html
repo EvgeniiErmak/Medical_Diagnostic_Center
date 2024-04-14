@@ -8,9 +8,8 @@
     <title>{% block title %}Медицинский диагностический центр{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <style>
-        .video-container video,
-        .video-container iframe,
-        .content img {
+        /* Ваши стили */
+        .video-container video, .video-container iframe, .content img {
             max-width: 800px;
             max-height: 450px;
             width: 100%;
@@ -19,19 +18,19 @@
         .messages {
             padding: 10px;
             margin-bottom: 20px;
-            background-color: #1094BEFF; /* цвет фона сообщения */
-            color: white; /* цвет текста сообщения */
+            background-color: #1094BEFF;
+            color: white;
             text-align: center;
             border-radius: 5px;
-            list-style: none; /* Убираем маркеры списка */
+            list-style: none;
         }
         .messages li {
             margin-bottom: 10px;
-            list-style: none; /* Убираем маркеры списка для каждого элемента списка */
+            list-style: none;
         }
         footer {
-            background-color: #000; /* Чёрный фон */
-            color: white; /* Белый текст */
+            background-color: #000;
+            color: white;
             padding: 20px;
             text-align: center;
         }
@@ -60,29 +59,34 @@
         <ul>
             <li><a href="{% url 'clinic:clinic_info' %}">О клинике</a></li>
             <li><a href="{% url 'clinic:specialist_list' %}">Наши специалисты</a></li>
-            <li><a href="{% url 'appointments:appointments_list' %}">Запись на прием</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'appointments:appointments_list' %}">Запись на прием</a></li>
+                <li><a href="{% url 'online_consultations:consultation_list' %}">Онлайн-консультации</a></li>
+            {% else %}
+                <li><a href="{% url 'authentication:login' %}">Запись на прием</a></li>
+                <li><a href="{% url 'authentication:login' %}">Онлайн-консультации</a></li>
+            {% endif %}
             <li><a href="{% url 'educational_resources:resources_list' %}">Образовательные ресурсы</a></li>
             <li><a href="{% url 'feedback:faq_list' %}">FAQ - Вопрос-Ответ</a></li>
             <li><a href="{% url 'feedback:feedback_list' %}">Отзывы</a></li>
-            <li><a href="{% url 'online_consultations:consultation_list' %}">Онлайн-консультации</a></li>
             <li><a href="{% url 'authentication:dashboard' %}">Личный кабинет</a></li>
             {% if user.is_authenticated %}
-            <li><a href="{% url 'authentication:logout' %}">Выйти</a></li>
+                <li><a href="{% url 'authentication:logout' %}">Выйти</a></li>
             {% else %}
-            <li><a href="{% url 'authentication:login' %}">Вход</a></li>
-            <li><a href="{% url 'authentication:register' %}">Регистрация</a></li>
+                <li><a href="{% url 'authentication:login' %}">Вход</a></li>
+                <li><a href="{% url 'authentication:register' %}">Регистрация</a></li>
             {% endif %}
         </ul>
     </nav>
 
     {% if messages %}
-    <div class="container">
-        <ul class="messages">
-            {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </div>
+        <div class="container">
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endif %}
 
     <main class="container">
@@ -95,21 +99,26 @@
             <div class="footer-column">
                 <a href="/">Главная</a>
                 <a href="{% url 'clinic:clinic_info' %}">О клинике</a>
-                <a href="{% url 'clinic:specialist_list' %}">Наши специалисты</a>
+                <a href="{% url 'feedback:feedback_list' %}">Отзывы</a>
             </div>
             <div class="footer-column">
-                <a href="{% url 'appointments:appointments_list' %}">Запись на прием</a>
+                <a href="{% url 'clinic:specialist_list' %}">Наши специалисты</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'appointments:appointments_list' %}">Запись на прием</a>
+                    <a href="{% url 'online_consultations:consultation_list' %}">Онлайн-консультации</a>
+                {% else %}
+                    <a href="{% url 'authentication:login' %}">Запись на прием</a>
+                    <a href="{% url 'authentication:login' %}">Онлайн-консультации</a>
+                {% endif %}
+            </div>
+            <div class="footer-column">
                 <a href="{% url 'educational_resources:resources_list' %}">Образовательные ресурсы</a>
                 <a href="{% url 'feedback:faq_list' %}">FAQ - Вопрос-Ответ</a>
-            </div>
-            <div class="footer-column">
-                <a href="{% url 'feedback:feedback_list' %}">Отзывы</a>
-                <a href="{% url 'online_consultations:consultation_list' %}">Онлайн-консультации</a>
                 <a href="{% url 'authentication:dashboard' %}">Личный кабинет</a>
             </div>
         </div>
         <div class="copyright">
-           <p> &copy; 2024 ERMAK Inc. Все права защищены.</p>
+            <p> &copy; 2024 ERMAK Inc. Все права защищены.</p>
         </div>
     </footer>
 </body>

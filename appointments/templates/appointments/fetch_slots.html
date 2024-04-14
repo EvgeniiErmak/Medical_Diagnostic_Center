@@ -1,2 +1,29 @@
 <!-- appointments/templates/appointments/fetch_slots.html -->
 
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Доступные слоты для записи на прием</h2>
+
+<div id="slots-container">
+  <!-- Сюда будет вставлен список слотов с помощью JavaScript -->
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('{% url "appointments:fetch_slots" %}')
+        .then(response => response.json())
+        .then(slots => {
+            const container = document.getElementById('slots-container');
+            slots.forEach(slot => {
+                const slotElement = document.createElement('div');
+                slotElement.textContent = `Слот: ${slot.start_time} - ${slot.end_time}`;
+                container.appendChild(slotElement);
+            });
+        })
+        .catch(error => {
+            console.error('Ошибка при получении слотов:', error);
+        });
+});
+</script>
+{% endblock %}

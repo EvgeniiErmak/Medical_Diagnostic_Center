@@ -1,3 +1,5 @@
+# Medical_Diagnostic_Center/settings.py
+
 """
 Django settings for Medical_Diagnostic_Center project.
 

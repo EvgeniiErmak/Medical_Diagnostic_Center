@@ -11,4 +11,5 @@ urlpatterns = [
     path('book/', views.book_appointment, name='book_appointment_by_query'),
     path('view/', views.view_appointments, name='view_appointments'),
     path('fetch_slots/', views.fetch_slots, name='fetch_slots'),
+    path('cancel/<int:appointment_id>/', views.cancel_appointment, name='cancel_appointment'),
 ]

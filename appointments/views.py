@@ -9,6 +9,17 @@ from django.http import JsonResponse
 
 
 @login_required
+def cancel_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id, patient=request.user)
+    if appointment:
+        appointment.delete()
+        messages.success(request, 'Ваша запись на прием была успешно отменена.')
+    else:
+        messages.error(request, 'Не удалось найти запись на прием для отмены.')
+    return redirect('appointments:appointments_list')
+
+
+@login_required
 def fetch_slots(request):
     """ Fetch available slots and return them in JSON format for FullCalendar. """
     slots = AppointmentSlot.objects.filter(is_booked=False)

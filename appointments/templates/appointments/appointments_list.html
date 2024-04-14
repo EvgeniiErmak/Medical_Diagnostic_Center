@@ -4,9 +4,21 @@
 
 {% block content %}
 <h2>Список записей на прием</h2>
-<ul>
+
+{% if appointments %}
+  <ul>
     {% for appointment in appointments %}
-    <li>{{ appointment.datetime }} - {{ appointment.doctor }}</li>
+      <li>
+        {{ appointment.slot.start_time }} - {{ appointment.slot.specialist.get_full_name }}
+        <form action="{% url 'appointments:cancel_appointment' appointment.id %}" method="post">
+          {% csrf_token %}
+          <input type="submit" value="Отменить запись">
+        </form>
+      </li>
     {% endfor %}
-</ul>
+  </ul>
+{% else %}
+  <p>У вас нет запланированных приемов.</p>
+{% endif %}
+
 {% endblock %}

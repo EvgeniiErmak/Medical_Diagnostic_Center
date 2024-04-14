@@ -1,2 +1,29 @@
-<!-- appointments/templates/appointments/book_appointment.html -->
+<!-- appointments/templates/appointments/book_appointment_by_query.html -->
 
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Запись на прием через запрос</h1>
+
+{% if slot %}
+  <div>
+    <h2>Информация о слоте</h2>
+    <p>Специалист: {{ slot.specialist.user.get_full_name }}</p>
+    <p>Дата и время: {{ slot.start_time }}</p>
+    <p>Продолжительность: {{ slot.get_duration_display }}</p>
+  </div>
+
+  <div>
+    <h2>Форма записи на прием</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="button">Записаться на прием</button>
+    </form>
+  </div>
+{% else %}
+  <p>К сожалению, выбранный слот недоступен.</p>
+{% endif %}
+
+<a href="{% url 'appointments:appointments_list' %}">Вернуться к списку записей на прием</a>
+{% endblock %}

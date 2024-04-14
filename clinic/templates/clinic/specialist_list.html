@@ -52,7 +52,7 @@
         {% if specialist.available_slot_id %}
             <a href="{% url 'appointments:book_appointment' slot_id=specialist.available_slot_id %}" class="button">Записаться на прием</a>
         {% else %}
-            <p class="button" style="background-color: #ccc;">Нет доступных временных слотов</p>
+            <p class="button" style="background-color: #040404;">Нет доступных временных слотов</p>
         {% endif %}
     </div>
     {% if not forloop.last %}

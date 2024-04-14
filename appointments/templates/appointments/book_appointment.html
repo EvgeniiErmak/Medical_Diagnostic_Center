@@ -7,12 +7,11 @@
 {% block content %}
 <h1>Запись на прием</h1>
 
-<div id='calendar'></div>
-
 {% if slot %}
 <p>Вы записываетесь к {{ slot.specialist.user.get_full_name }} на {{ slot.start_time }}.</p>
 <form method="post">
     {% csrf_token %}
+    {{ form.as_p }} <!-- Отрисовка поля 'issue' с новой меткой 'Вопрос' -->
     <button type="submit" class="button">Подтвердить запись</button>
 </form>
 {% else %}
@@ -31,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
         events: function(fetchInfo, successCallback, failureCallback) {
-            fetch('{% url "appointments:fetch_slots" %}')  // Этот URL должен быть определен в Django urls.py
+            fetch('{% url "appointments:fetch_slots" %}')
             .then(response => response.json())
             .then(slots => {
                 var events = slots.map(slot => {
@@ -39,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         title: 'Свободный слот',
                         start: slot.start_time,
                         end: slot.end_time,
-                        url: '{% url "appointments:book_appointment" %}?slot_id=' + slot.id  // Этот URL должен быть определен в Django urls.py
+                        url: '{% url "appointments:book_appointment" slot_id=999999 %}'.replace('999999', slot.id)
                     };
                 });
                 successCallback(events);

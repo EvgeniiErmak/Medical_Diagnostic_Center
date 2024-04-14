@@ -16,32 +16,43 @@
         padding: 10px 20px;
         margin: 10px 0;
         background-color: #007BFF;
-        color: #ffffff;
+        color: white;
         text-decoration: none;
         border-radius: 5px;
     }
     .button:hover {
         background-color: #0056b3;
     }
+    .specialist img {
+        width: 300px; /* Устанавливаем ширину изображения */
+        height: 300px; /* Устанавливаем высоту изображения */
+        border-radius: 50%; /* Делаем изображение круглым */
+        object-fit: cover; /* Обеспечиваем покрытие элемента содержимым без искажений */
+        margin-bottom: 15px; /* Отступ снизу */
+    }
+    .specialist {
+        margin-bottom: 20px;
+    }
 </style>
 
 <h2>Наши специалисты</h2>
 
-<figure>
-    <img src="/media/Специалисты.jpeg" alt="Специалисты" />
-</figure>
-
 <div class="specialists">
     {% for specialist in specialists %}
     <div class="specialist">
+        <img src="{{ specialist.photo.url }}" alt="Фото {{ specialist.user.get_full_name }}">
         <h3>Доктор {{ specialist.user.get_full_name }}</h3>
-        <p>Возраст: {{ specialist.user.profile.age }}</p> <!-- Предположение о структуре данных -->
+        <p>Возраст: {{ specialist.calculate_age }}</p>
         <p>Специализация: {{ specialist.specialization }}</p>
         <p>Квалификация: {{ specialist.qualifications }}</p>
+        <p>Образование: {{ specialist.education }}</p>
+        <p>Опыт работы: {{ specialist.experience_years }} лет</p>
+        <p>Email: {{ specialist.contact_email }}</p>
+        <p>Телефон: {{ specialist.contact_phone }}</p>
         {% if specialist.available_slot_id %}
             <a href="{% url 'appointments:book_appointment' slot_id=specialist.available_slot_id %}" class="button">Записаться на прием</a>
         {% else %}
-            <p class="button" style="background-color: #0056b3;">Нет доступных временных слотов</p>
+            <p class="button" style="background-color: #ccc;">Нет доступных временных слотов</p>
         {% endif %}
     </div>
     {% if not forloop.last %}

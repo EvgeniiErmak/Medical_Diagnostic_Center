@@ -8,7 +8,7 @@ from clinic.models import Specialist
 class AppointmentSlot(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    specialist = models.ForeignKey(Specialist, on_delete=models.CASCADE, related_name='appointment_slots', null=True)  # временно разрешаем null
+    specialist = models.ForeignKey('clinic.Specialist', on_delete=models.CASCADE, related_name='appointment_slots', default=2)  # предполагаем, что существует специалист с ID=1
     is_booked = models.BooleanField(default=False)
 
     def __str__(self):

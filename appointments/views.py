@@ -4,25 +4,45 @@ from .models import AppointmentSlot, Appointment
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import AppointmentForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.http import JsonResponse
+
+
+@login_required
+def fetch_slots(request):
+    """ Fetch available slots and return them in JSON format for FullCalendar. """
+    slots = AppointmentSlot.objects.filter(is_booked=False)
+    slots_data = [{'id': slot.id, 'start_time': slot.start_time.isoformat(), 'end_time': slot.end_time.isoformat()} for slot in slots]
+    return JsonResponse(slots_data, safe=False)
 
 
 @login_required
 def appointments_list(request):
-    appointments = Appointment.objects.filter(patient=request.user)
+    """ Display a list of appointments for the logged-in user. """
+    appointments = Appointment.objects.filter(patient=request.user).select_related('slot')
     return render(request, 'appointments/appointments_list.html', {'appointments': appointments})
 
 
 @login_required
-def book_appointment(request, slot_id):  # Используем slot_id вместо specialist_id
-    slot = get_object_or_404(AppointmentSlot, id=slot_id)
+def book_appointment(request, slot_id):
+    """ Handle booking an appointment for a given slot. """
+    slot = get_object_or_404(AppointmentSlot, id=slot_id, is_booked=False)
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
         if form.is_valid():
-            appointment = form.save(commit=False)
-            appointment.patient = request.user
-            appointment.slot = slot
-            appointment.save()
-            return redirect('appointments:view_appointments')
+            if not slot.is_booked:  # Additional check to prevent race conditions
+                appointment = form.save(commit=False)
+                appointment.patient = request.user
+                appointment.slot = slot
+                appointment.save()
+                slot.is_booked = True  # Mark the slot as booked
+                slot.save()
+                messages.success(request, 'Вы успешно записаны на прием.')
+                return redirect('appointments:view_appointments')
+            else:
+                messages.error(request, 'Этот слот уже забронирован.')
+        else:
+            messages.error(request, 'Произошла ошибка при обработке формы.')
     else:
         form = AppointmentForm()
 
@@ -31,5 +51,6 @@ def book_appointment(request, slot_id):  # Используем slot_id вмес
 
 @login_required
 def view_appointments(request):
-    appointments = Appointment.objects.filter(patient=request.user)
+    """ Display all appointments for the logged-in user. """
+    appointments = Appointment.objects.filter(patient=request.user).select_related('slot')
     return render(request, 'appointments/view_appointments.html', {'appointments': appointments})

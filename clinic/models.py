@@ -3,10 +3,12 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from datetime import date
 
 
 class Specialist(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_('пользователь'))
+    age = models.PositiveIntegerField("Возраст", null=True, blank=True)
     specialization = models.CharField(max_length=100, verbose_name=_('специализация'))
     qualifications = models.TextField(verbose_name=_('квалификация'))
     experience_years = models.IntegerField(default=0, verbose_name=_('опыт работы'))
@@ -21,6 +23,13 @@ class Specialist(models.Model):
 
     def full_name(self):
         return self.user.get_full_name()
+
+    def calculate_age(self):
+        if self.user.date_of_birth:
+            today = date.today()
+            return today.year - self.user.date_of_birth.year - (
+                        (today.month, today.day) < (self.user.date_of_birth.month, self.user.date_of_birth.day))
+        return None  # Возвращаем None, если дата рождения не задана
 
     class Meta:
         verbose_name = _('специалист')

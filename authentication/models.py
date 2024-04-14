@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+import datetime
 
 
 class CustomUserManager(BaseUserManager):
@@ -60,3 +61,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         """Возвращает краткое имя пользователя, обычно первое имя."""
         return self.first_name
+
+    def calculate_age(self):
+        today = datetime.date.today()
+        if self.date_of_birth:
+            return today.year - self.date_of_birth.year - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
+        return None

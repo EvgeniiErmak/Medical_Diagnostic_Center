@@ -3,17 +3,25 @@
 from .models import AppointmentSlot, Appointment
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import AppointmentForm
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import JsonResponse
+from django.utils import timezone
 
 
 @login_required
 def cancel_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id, patient=request.user)
     if appointment:
-        appointment.delete()
-        messages.success(request, 'Ваша запись на прием была успешно отменена.')
+        # Проверяем, не прошло ли уже время слота
+        if timezone.now() < appointment.slot.start_time:
+            slot = appointment.slot
+            slot.is_booked = False
+            slot.save()
+            appointment.delete()
+            messages.success(request, 'Ваша запись на прием была успешно отменена.')
+        else:
+            messages.error(request, 'Отмена записи невозможна, так как указанное время уже прошло.')
     else:
         messages.error(request, 'Не удалось найти запись на прием для отмены.')
     return redirect('appointments:appointments_list')

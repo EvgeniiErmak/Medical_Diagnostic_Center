@@ -10,9 +10,10 @@
     {% for appointment in appointments %}
       <li>
         {{ appointment.slot.start_time }} - {{ appointment.slot.specialist.get_full_name }}
+        <!-- Кнопка для отмены записи -->
         <form action="{% url 'appointments:cancel_appointment' appointment.id %}" method="post">
           {% csrf_token %}
-          <input type="submit" value="Отменить запись">
+          <button type="submit" class="button">Отменить запись</button>
         </form>
       </li>
     {% endfor %}

@@ -30,10 +30,25 @@
             list-style: none; /* Убираем маркеры списка для каждого элемента списка */
         }
         footer {
+            background-color: #000; /* Чёрный фон */
+            color: white; /* Белый текст */
+            padding: 20px;
+            text-align: center;
+        }
+        .footer-columns {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 10px;
+        }
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .copyright {
             text-align: center;
             margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #ccc; /* Добавление верхней границы для футера */
+            font-size: small;
         }
     </style>
 </head>
@@ -75,8 +90,28 @@
         {% endblock %}
     </main>
 
-    <footer class="container">
-        <small><a href="{% url 'clinic:privacy_policy' %}">Политика конфиденциальности</a> • <a href="{% url 'clinic:contacts' %}">Контакты</a></small>
+    <footer class="container-fluid">
+        <div class="footer-columns">
+            <div class="footer-column">
+                <a href="/">Главная</a>
+                <a href="{% url 'clinic:clinic_info' %}">О клинике</a>
+            </div>
+            <div class="footer-column">
+                <a href="{% url 'clinic:specialist_list' %}">Наши специалисты</a>
+                <a href="{% url 'appointments:appointments_list' %}">Запись на прием</a>
+            </div>
+            <div class="footer-column">
+                <a href="{% url 'educational_resources:resources_list' %}">Образовательные ресурсы</a>
+                <a href="{% url 'feedback:faq_list' %}">FAQ - Вопрос-Ответ</a>
+            </div>
+            <div class="footer-column">
+                <a href="{% url 'feedback:feedback_list' %}">Отзывы</a>
+                <a href="{% url 'online_consultations:consultation_list' %}">Онлайн-консультации</a>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2024 ERMAK Inc.
+        </div>
     </footer>
 </body>
 </html>

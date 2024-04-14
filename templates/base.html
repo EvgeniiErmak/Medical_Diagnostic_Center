@@ -95,18 +95,17 @@
             <div class="footer-column">
                 <a href="/">Главная</a>
                 <a href="{% url 'clinic:clinic_info' %}">О клинике</a>
-            </div>
-            <div class="footer-column">
                 <a href="{% url 'clinic:specialist_list' %}">Наши специалисты</a>
-                <a href="{% url 'appointments:appointments_list' %}">Запись на прием</a>
             </div>
             <div class="footer-column">
+                <a href="{% url 'appointments:appointments_list' %}">Запись на прием</a>
                 <a href="{% url 'educational_resources:resources_list' %}">Образовательные ресурсы</a>
                 <a href="{% url 'feedback:faq_list' %}">FAQ - Вопрос-Ответ</a>
             </div>
             <div class="footer-column">
                 <a href="{% url 'feedback:feedback_list' %}">Отзывы</a>
                 <a href="{% url 'online_consultations:consultation_list' %}">Онлайн-консультации</a>
+                <a href="{% url 'authentication:dashboard' %}">Личный кабинет</a>
             </div>
         </div>
         <div class="copyright">

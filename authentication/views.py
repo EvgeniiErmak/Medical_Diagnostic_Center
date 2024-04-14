@@ -82,7 +82,7 @@ def user_logout(request):
     return redirect('index')  # Перенаправление на главную страницу после выхода
 
 
-@login_required
+@login_required(login_url='/authentication/login/')
 def dashboard(request):
     edit = request.GET.get('edit', 'false') == 'true'  # Проверка параметра запроса для редактирования
     if request.method == 'POST':

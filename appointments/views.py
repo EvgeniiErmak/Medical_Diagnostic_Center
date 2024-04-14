@@ -1,5 +1,6 @@
 # appointments/views.py
 
+from clinic.models import Specialist
 from .models import AppointmentSlot, Appointment
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import AppointmentForm
@@ -73,3 +74,10 @@ def view_appointments(request):
     """ Display all appointments for the logged-in user. """
     appointments = Appointment.objects.filter(patient=request.user).select_related('slot')
     return render(request, 'appointments/view_appointments.html', {'appointments': appointments})
+
+
+@login_required
+def specialist_free_slots(request, specialist_id):
+    specialist = get_object_or_404(Specialist, pk=specialist_id)
+    free_slots = AppointmentSlot.objects.filter(specialist=specialist, is_booked=False)
+    return render(request, 'appointments/specialist_free_slots.html', {'specialist': specialist, 'free_slots': free_slots})

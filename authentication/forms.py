@@ -17,6 +17,8 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserLoginForm(AuthenticationForm):
+    remember_me = forms.BooleanField(required=False, label='Запомни меня', widget=forms.CheckboxInput())
+
     class Meta:
         model = CustomUser
         fields = ['email', 'password']

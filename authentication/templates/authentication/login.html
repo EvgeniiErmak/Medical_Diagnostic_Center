@@ -4,15 +4,37 @@
 
 {% block content %}
 <div class="login-container">
-    <h2>Вход</h2>
+    <h2>Вход в аккаунт</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Войти</button>
     </form>
     <p>
-        <a href="{% url 'authentication:register' %}" class="button">Зарегистрироваться</a>
+        <a href="{% url 'authentication:register' %}" class="button">Нет аккаунта?</a>
         <a href="{% url 'authentication:password_reset' %}" class="button">Забыли пароль?</a>
     </p>
+    <script>
+        // Скрипт для переключения видимости пароля
+        document.addEventListener('DOMContentLoaded', function() {
+            var passwordInput = document.querySelector('[name="password"]');
+            var togglePasswordButton = document.createElement('button');
+            togglePasswordButton.type = 'button';
+            togglePasswordButton.textContent = 'Показать';
+            togglePasswordButton.addEventListener('click', togglePassword);
+
+            passwordInput.parentNode.insertBefore(togglePasswordButton, passwordInput.nextSibling);
+
+            function togglePassword() {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    togglePasswordButton.textContent = 'Скрыть скрыть';
+                } else {
+                    passwordInput.type = 'password';
+                    togglePasswordButton.textContent = 'Показать пароль';
+                }
+            }
+        });
+    </script>
 </div>
 {% endblock %}

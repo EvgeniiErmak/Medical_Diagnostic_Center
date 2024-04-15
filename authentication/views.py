@@ -16,6 +16,7 @@ from django.conf import settings
 from django.urls import reverse
 from .models import CustomUser
 
+
 account_activation_token = PasswordResetTokenGenerator()
 
 
@@ -66,12 +67,22 @@ def user_login(request):
     if request.method == 'POST':
         form = UserLoginForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            remember_me = form.cleaned_data.get('remember_me', False)
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('authentication:dashboard')  # Перенаправление на панель пользователя после входа
+                if remember_me:
+                    # Session will expire in 30 days
+                    request.session.set_expiry(30 * 24 * 60 * 60)  # 30 days in seconds
+                else:
+                    # Session will expire when the user closes the browser
+                    request.session.set_expiry(0)
+                return redirect('authentication:dashboard')
+        else:
+            # Form is not valid, fall through to re-render the form with error messages
+            pass
     else:
         form = UserLoginForm()
     return render(request, 'authentication/login.html', {'form': form})

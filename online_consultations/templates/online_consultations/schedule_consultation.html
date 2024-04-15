@@ -4,9 +4,17 @@
 
 {% block content %}
 <h2>Запись на консультацию</h2>
+
+{% if slot %}
+<p>Вы записываетесь на консультацию к {{ slot.specialist.user.get_full_name }} на {{ slot.start_time }}.</p>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Записаться</button>
+    <button type="submit" class="button">Подтвердить запись</button>
 </form>
+{% else %}
+<p>Выбранный слот уже забронирован или не существует.</p>
+{% endif %}
+
+<a href="{% url 'online_consultations:consultation_list' %}" class="button">Вернуться к списку доступных консультаций</a>
 {% endblock %}

@@ -86,4 +86,11 @@ function sendFile() {
     }
 }
 
-// Инициализация смайликов должна быть выполнена здесь, если используется JavaScript-библиотека для этого
+function setupEmojiPicker() {
+    const picker = new EmojiPickerElement();
+    const input = document.getElementById('message-input');
+    picker.addEventListener('emoji-click', event => {
+        input.value += event.detail.unicode;
+    });
+    document.body.appendChild(picker);
+}

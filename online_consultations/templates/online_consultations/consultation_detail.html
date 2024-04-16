@@ -8,9 +8,14 @@
 <p>Специалист: {{ consultation.slot.specialist.user.get_full_name }}</p>
 <p>Время начала: {{ consultation.slot.start_time|date:"d M Y H:i" }}</p>
 
-<div id="video-container">
-    <video id="localVideo" autoplay muted style="width: 45%; height: auto; float: left;"></video>
-    <video id="remoteVideo" autoplay style="width: 45%; height: auto; float: right;"></video>
+<div id="video-container" style="text-align: center; width: 100%;">
+    <video id="localVideo" autoplay muted style="width: 49%; height: auto;"></video>
+    <video id="remoteVideo" autoplay style="width: 49%; height: auto;"></video>
+</div>
+
+<div id="participant-names" style="text-align: center; margin-top: 10px;">
+    <p>Вы: {{ request.user.get_full_name }}</p>
+    <p>Специалист: {{ consultation.slot.specialist.user.get_full_name }}</p>
 </div>
 
 <div id="messages">

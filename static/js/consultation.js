@@ -57,3 +57,33 @@ function sendSignal(message) {
 }
 
 document.addEventListener('DOMContentLoaded', startVideoStream);
+
+function sendMessage() {
+    const messageInput = document.getElementById('message-input');
+    const message = messageInput.value;
+    consultationSocket.send(JSON.stringify({ 'message': message }));
+    messageInput.value = '';
+    appendMessage(message, 'You');
+}
+
+function appendMessage(message, sender) {
+    const messageList = document.getElementById('message-list');
+    const msg = document.createElement('li');
+    msg.textContent = `${sender}: ${message}`;
+    messageList.appendChild(msg);
+}
+
+function sendFile() {
+    const fileInput = document.getElementById('file-input');
+    const file = fileInput.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const data = reader.result;
+            consultationSocket.send(data);
+        };
+        reader.readAsArrayBuffer(file);
+    }
+}
+
+// Инициализация смайликов должна быть выполнена здесь, если используется JavaScript-библиотека для этого

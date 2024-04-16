@@ -8,9 +8,21 @@
 <p>Специалист: {{ consultation.slot.specialist.user.get_full_name }}</p>
 <p>Время начала: {{ consultation.slot.start_time|date:"d M Y H:i" }}</p>
 
-<div id="video-container" style="text-align: center; width: 100%;">
-    <video id="localVideo" autoplay muted style="width: 49%; height: auto;"></video>
-    <video id="remoteVideo" autoplay style="width: 49%; height: auto;"></video>
+<div style="display: flex; justify-content: space-between;">
+    <div id="video-container" style="flex-grow: 1; margin-right: 20px;">
+        <video id="localVideo" autoplay muted style="width: 100%; height: auto;"></video>
+        <video id="remoteVideo" autoplay style="width: 100%; height: auto;"></video>
+    </div>
+
+    <div id="chat-container" style="width: 300px; border: 1px solid #ccc; padding: 10px;">
+        <ul id="message-list" style="list-style: none; padding: 0; height: 400px; overflow-y: scroll;">
+        </ul>
+        <input type="text" id="message-input" placeholder="Введите сообщение..." style="width: 100%;">
+        <button id="emoji-trigger">😊</button>
+        <button onclick="sendMessage();">Отправить</button>
+        <input type="file" id="file-input">
+        <button onclick="sendFile(document.getElementById('file-input').files[0]);">Загрузить файл</button>
+    </div>
 </div>
 
 <div id="participant-names" style="text-align: center; margin-top: 10px;">
@@ -18,19 +30,13 @@
     <p>Специалист: {{ consultation.slot.specialist.user.get_full_name }}</p>
 </div>
 
-<div id="messages">
-    <ul id="message-list">
-    </ul>
-</div>
-
-<input type="text" id="message-input" placeholder="Введите сообщение...">
-<button onclick="sendMessage();">Отправить</button>
-
 <script src="{% static 'js/consultation.js' %}"></script>
 <script src="{% static 'js/webrtc.js' %}"></script>
+<script src="{% static 'js/emoji-picker.js' %}"></script>
 <script type="text/javascript">
     startWebSocket({{ consultation.id }});
     startVideoCall();
+    setupEmojiPicker(); // Настройка смайликов
 
     document.addEventListener('DOMContentLoaded', function() {
         // Проверяем, наступило ли время консультации, и добавляем ссылку на видео-конференцию
@@ -41,6 +47,21 @@
             videoContainer.innerHTML = '<a href="{{ consultation.video_call_link }}" target="_blank">Присоединиться к видео-конференции</a>';
         }
     });
+
+    function sendMessage() {
+        const messageInput = document.getElementById('message-input');
+        const message = messageInput.value;
+        consultationSocket.send(JSON.stringify({ 'message': message }));
+        messageInput.value = '';
+    }
+
+    function sendFile() {
+        const fileInput = document.getElementById('file-input');
+        const file = fileInput.files[0];
+        if (file) {
+            // Здесь можно добавить логику для отправки файла через WebSocket или другой механизм
+        }
+    }
 </script>
 
 {% endblock %}

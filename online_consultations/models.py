@@ -2,12 +2,20 @@
 
 from django.db import models
 from django.conf import settings
-from django.utils import timezone
 from clinic.models import Specialist
 
 
+class ConsultationSlot(models.Model):
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    specialist = models.ForeignKey(Specialist, on_delete=models.CASCADE, related_name='consultation_slots')
+    is_booked = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.specialist}'s consultation slot from {self.start_time} to {self.end_time}"
+
+
 class Consultation(models.Model):
-    # Определяем возможные типы консультаций
     CONSULTATION_TYPES = (
         ('general', 'Общая консультация'),
         ('special', 'Специализированная консультация'),
@@ -16,13 +24,12 @@ class Consultation(models.Model):
     )
 
     patient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='consultations')
-    specialist = models.ForeignKey(Specialist, on_delete=models.SET_NULL, null=True, related_name='consultations')
     consultation_type = models.CharField(max_length=100, choices=CONSULTATION_TYPES, default='general')
-    consultation_date = models.DateTimeField(default=timezone.now)  # Прямое указание даты и времени
+    slot = models.OneToOneField(ConsultationSlot, on_delete=models.CASCADE, related_name='consultation', null=True)
     issue = models.TextField(default='Не оставил сообщение')
 
     def __str__(self):
-        if self.specialist:
-            return f"Consultation for {self.patient} with {self.specialist} on {self.consultation_date.strftime('%Y-%m-%d %H:%M')}"
+        if self.slot and self.slot.specialist:
+            return f"Consultation for {self.patient} with {self.slot.specialist} on {self.slot.start_time}"
         else:
-            return f"Consultation for {self.patient} with no specialist on {self.consultation_date.strftime('%Y-%m-%d %H:%M')}"
+            return f"Consultation for {self.patient} with no specialist"

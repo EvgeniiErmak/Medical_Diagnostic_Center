@@ -1,37 +1,74 @@
 # online_consultations/views.py
 
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
+from .models import Consultation, ConsultationSlot
+from clinic.models import Specialist
 from .forms import ConsultationForm
-from .models import Consultation, Specialist  # Убедитесь, что импортируете Specialist правильно
-from appointments.models import AppointmentSlot
+from django.contrib import messages
+from django.utils import timezone
 
 
 @login_required
-def schedule_consultation(request, specialist_id):  # Добавляем параметр specialist_id
-    specialist = get_object_or_404(Specialist, pk=specialist_id)  # Получаем специалиста по ID
+def book_consultation(request, slot_id):
+    slot = get_object_or_404(ConsultationSlot, id=slot_id, is_booked=False)
     if request.method == 'POST':
         form = ConsultationForm(request.POST)
         if form.is_valid():
-            consultation = form.save(commit=False)
-            consultation.patient = request.user  # Убедитесь, что используете patient вместо user
-            consultation.specialist = specialist  # Присваиваем специалиста, если это необходимо
-            consultation.save()
-            # После сохранения консультации, помечаем слот как забронированный
-            slot = get_object_or_404(AppointmentSlot, id=consultation.slot.id)
-            slot.is_booked = True
-            slot.save()
-            messages.success(request, 'Вы успешно записаны на консультацию.')
-            return redirect('online_consultations:consultation_list')
+            if not slot.is_booked:
+                consultation = form.save(commit=False)
+                consultation.patient = request.user
+                consultation.slot = slot
+                consultation.save()
+                slot.is_booked = True
+                slot.save()
+                messages.success(request, 'Вы успешно записаны на консультацию.')
+                return redirect('online_consultations:consultation_list')
+            else:
+                messages.error(request, 'Этот слот уже забронирован.')
+        else:
+            messages.error(request, 'Произошла ошибка при обработке формы.')
     else:
-        form = ConsultationForm(initial={'specialist': specialist})
-    return render(request, 'online_consultations/schedule_consultation.html', {
-        'form': form,
-        'specialist': specialist
+        form = ConsultationForm()
+
+    return render(request, 'online_consultations/book_consultation.html', {'form': form, 'slot': slot})
+
+
+@login_required
+def view_consultations(request):
+    consultations = Consultation.objects.filter(patient=request.user).select_related('slot')
+    return render(request, 'online_consultations/consultation_list.html', {'consultations': consultations})
+
+
+@login_required
+def cancel_consultation(request, consultation_id):
+    consultation = get_object_or_404(Consultation, id=consultation_id, patient=request.user)
+    if consultation:
+        if timezone.now() < consultation.slot.start_time:
+            slot = consultation.slot
+            slot.is_booked = False
+            slot.save()
+            consultation.delete()
+            messages.success(request, 'Ваша консультация была успешно отменена.')
+        else:
+            messages.error(request, 'Отмена консультации невозможна, так как указанное время уже прошло.')
+    else:
+        messages.error(request, 'Не удалось найти консультацию для отмены.')
+    return redirect('online_consultations:consultation_list')
+
+
+@login_required
+def specialist_free_slots(request, specialist_id):
+    specialist = get_object_or_404(Specialist, pk=specialist_id)
+    free_slots = ConsultationSlot.objects.filter(specialist=specialist, is_booked=False)
+    return render(request, 'online_consultations/specialist_free_slots.html', {
+        'specialist': specialist,
+        'free_slots': free_slots
     })
 
 
-def consultation_list(request):
-    consultations = Consultation.objects.filter(patient=request.user)
-    return render(request, 'online_consultations/consultation_list.html', {'consultations': consultations})
+def schedule_consultation(request, specialist_id):
+    # Убедитесь, что Specialist импортирован и используется корректно
+    specialist = get_object_or_404(Specialist, pk=specialist_id)
+    # Логика обработки запроса
+    return render(request, 'online_consultations/schedule_consultation.html', {'specialist': specialist})

@@ -1,0 +1,16 @@
+<!-- online_consultations/templates/online_consultations/book_consultation.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Запись на консультацию к {{ slot.specialist.user.get_full_name }}</h2>
+<p>Выбранный слот: {{ slot.start_time|date:"d.m.Y H:i" }} - {{ slot.end_time|date:"d.m.Y H:i" }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="button">Подтвердить запись</button>
+</form>
+
+<a href="{% url 'online_consultations:specialist_free_slots' slot.specialist.id %}" class="button">Вернуться к выбору слотов</a>
+{% endblock %}

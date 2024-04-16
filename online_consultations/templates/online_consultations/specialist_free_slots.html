@@ -1,0 +1,17 @@
+<!-- online_consultations/templates/online_consultations/specialist_free_slots.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Доступные слоты для консультации: {{ specialist.user.get_full_name }}</h2>
+<ul>
+    {% for slot in free_slots %}
+    <li>{{ slot.start_time|date:"d.m.Y H:i" }} - {{ slot.end_time|date:"d.m.Y H:i" }}
+        <a href="{% url 'online_consultations:book_consultation' slot.id %}" class="button">Записаться</a>
+    </li>
+    {% endfor %}
+</ul>
+{% if not free_slots %}
+<p>В настоящее время нет доступных слотов.</p>
+{% endif %}
+{% endblock %}

@@ -51,7 +51,7 @@
         <p>Телефон: {{ specialist.contact_phone }}</p>
         {% if specialist.available_slot_id %}
             <a href="{% url 'appointments:specialist_free_slots' specialist.id %}" class="button">Записаться на прием</a>
-            <a href="{% url 'online_consultations:schedule_consultation' specialist.id %}" class="button">Записаться на онлайн-консультацию</a>
+            <a href="{% url 'online_consultations:specialist_free_slots' specialist.id %}" class="button">Записаться на онлайн-консультацию</a>
         {% else %}
             <p class="button" style="background-color: #040404;">Нет доступных временных слотов</p>
         {% endif %}

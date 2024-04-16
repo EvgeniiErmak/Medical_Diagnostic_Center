@@ -8,6 +8,7 @@ from .forms import ConsultationForm
 from django.contrib import messages
 from django.utils import timezone
 from .models import ConsultationSession
+from django.http import JsonResponse
 
 
 @login_required

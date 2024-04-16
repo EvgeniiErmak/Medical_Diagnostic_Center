@@ -8,11 +8,15 @@
 {% if consultations %}
   <div>
     {% for consultation in consultations %}
-      <div>
+      <div id="consultation-{{ consultation.id }}">
         <strong>Специалист:</strong> {{ consultation.slot.specialist.user.get_full_name }}<br>
         <strong>Тип:</strong> {{ consultation.get_consultation_type_display }}<br>
         <strong>Проблема:</strong> {{ consultation.issue }}<br>
         <strong>Дата и время консультации:</strong> {{ consultation.slot.start_time|date:"H:i l d.m.Y" }}<br>
+
+        <!-- Ссылка на страницу консультации -->
+        <a href="{% url 'online_consultations:consultation_detail' consultation.id %}">Подробнее о консультации</a>
+
         <!-- Кнопка для отмены консультации -->
         <form action="{% url 'online_consultations:cancel_consultation' consultation.id %}" method="post">
           {% csrf_token %}

@@ -11,4 +11,5 @@ urlpatterns = [
     path('cancel/<int:consultation_id>/', views.cancel_consultation, name='cancel_consultation'),
     path('specialist/<int:specialist_id>/free_slots/', views.specialist_free_slots, name='specialist_free_slots'),
     path('schedule_consultation/<int:specialist_id>/', views.schedule_consultation, name='schedule_consultation'),
+    path('consultation/<int:consultation_id>/', views.consultation_detail, name='consultation_detail'),
 ]

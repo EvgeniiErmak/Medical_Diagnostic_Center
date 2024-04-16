@@ -93,11 +93,13 @@
 │   ├── __init__.py
 │   ├── admin.py
 │   ├── apps.py
+│   ├── consumers.py
 │   ├── forms.py
 │   ├── models.py
 │   ├── templates
 │   │   └── online_consultations
 │   │       ├── book_consultation.html
+│   │       ├── consultation_detail.html
 │   │       ├── consultation_list.html
 │   │       ├── schedule_consultation.html
 │   │       └── specialist_free_slots.html
@@ -114,4 +116,4 @@
     ├── index.html
     └── privacy_policy.html
 
-21 directories, 95 files
+21 directories, 97 files

@@ -21,6 +21,7 @@ django-ckeditor-5 = "^0.2.12"
 django-summernote = "^0.8.20.0"
 django-countries = "^7.6.1"
 aiortc = "^1.8.0"
+channels-redis = "^4.2.0"
 
 
 [build-system]

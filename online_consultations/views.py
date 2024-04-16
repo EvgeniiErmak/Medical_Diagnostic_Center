@@ -7,6 +7,29 @@ from clinic.models import Specialist
 from .forms import ConsultationForm
 from django.contrib import messages
 from django.utils import timezone
+from .models import ConsultationSession
+
+
+@login_required
+def consultation_detail(request, consultation_id):
+    consultation = get_object_or_404(Consultation, id=consultation_id)
+    return render(request, 'online_consultations/consultation_detail.html', {'consultation': consultation})
+
+
+def create_offer(request, consultation_id):
+    consultation = get_object_or_404(Consultation, id=consultation_id)
+    # Предполагаемая логика для создания WebRTC оффера
+    offer = "create WebRTC offer logic here"
+    ConsultationSession.objects.create(consultation=consultation, offer=offer)
+    return JsonResponse({'offer': offer})
+
+
+def receive_answer(request, session_id):
+    session = get_object_or_404(ConsultationSession, id=session_id)
+    answer = request.POST.get('answer')
+    session.answer = answer
+    session.save()
+    return JsonResponse({'status': 'answer received'})
 
 
 @login_required

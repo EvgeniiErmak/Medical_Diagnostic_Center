@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "authentication",
     "appointments",
     "crispy_forms",
+    "channels",
     "feedback",
     "clinic",
 ]
@@ -159,3 +160,13 @@ EMAIL_HOST_USER = 'djermak2@gmail.com'  # Замените на ваш реал�
 EMAIL_HOST_PASSWORD = 'owkbrlfufhkjpypl'  # Замените на ваш пароль
 EMAIL_TIMEOUT = 50
 
+# Настройки Channels
+ASGI_APPLICATION = 'Medical_Diagnostic_Center.asgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}

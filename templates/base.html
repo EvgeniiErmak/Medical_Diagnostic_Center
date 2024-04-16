@@ -70,6 +70,7 @@
         </ul>
         <ul>
             <li><a href="{% url 'clinic:clinic_info' %}">О клинике</a></li>
+            <li><a href="{% url 'clinic:equipment' %}">Оборудование</a></li>
             <li><a href="{% url 'clinic:specialist_list' %}">Наши специалисты</a></li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'appointments:appointments_list' %}">Запись на прием</a></li>
@@ -111,6 +112,7 @@
             <div class="footer-column">
                 <a href="/">Главная</a>
                 <a href="{% url 'clinic:clinic_info' %}">О клинике</a>
+                <a href="{% url 'clinic:equipment' %}">Оборудование</a>
                 <a href="{% url 'feedback:feedback_list' %}">Отзывы</a>
             </div>
             <div class="footer-column">

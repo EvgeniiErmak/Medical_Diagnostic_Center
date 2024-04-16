@@ -1,9 +1,15 @@
 # clinic/views.py
 
-from .models import Specialist, Service, Schedule
+from .models import Specialist, Service, Schedule, Equipment
 from django.shortcuts import render, get_object_or_404
 from appointments.models import AppointmentSlot
 from django.db.models import Subquery, OuterRef
+
+
+def equipment_view(request):
+    # Your logic here, for example:
+    equipments = Equipment.objects.all()
+    return render(request, 'clinic/equipment.html', {'equipments': equipments})
 
 
 def specialist_list(request):

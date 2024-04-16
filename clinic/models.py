@@ -6,6 +6,16 @@ from django.utils.translation import gettext_lazy as _
 from datetime import date
 
 
+class Equipment(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название")
+    image_url = models.URLField(verbose_name="URL изображения")
+    description = models.TextField(verbose_name="Описание")
+    specs = models.TextField(verbose_name="Технические характеристики")
+
+    def __str__(self):
+        return self.name
+
+
 class Specialist(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_('пользователь'))
     age = models.PositiveIntegerField("Возраст", null=True, blank=True)

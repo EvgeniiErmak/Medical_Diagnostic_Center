@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from .models import Specialist, Service, Schedule
 from datetime import date
+from .models import Equipment
 
 
 class SpecialistAdmin(admin.ModelAdmin):
@@ -28,3 +29,4 @@ class SpecialistAdmin(admin.ModelAdmin):
 admin.site.register(Specialist, SpecialistAdmin)
 admin.site.register(Service)
 admin.site.register(Schedule)
+admin.site.register(Equipment)

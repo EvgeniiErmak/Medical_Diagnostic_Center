@@ -52,6 +52,7 @@
 │   ├── templates
 │   │   └── clinic
 │   │       ├── clinic_info.html
+│   │       ├── equipment.html
 │   │       ├── specialist_detail.html
 │   │       ├── specialist_list.html
 │   │       └── specialist_schedule.html
@@ -113,4 +114,4 @@
     ├── index.html
     └── privacy_policy.html
 
-21 directories, 94 files
+21 directories, 95 files

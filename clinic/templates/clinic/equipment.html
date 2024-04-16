@@ -1,0 +1,23 @@
+<!-- clinic/templates/clinic/equipment.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4">
+    <!-- Добавление ссылки на главную страницу -->
+    <a href="/" class="text-blue-500 hover:text-blue-700 font-semibold">Главная</a>
+    <h1 class="text-xl font-bold my-4">Оборудование</h1>
+    <div class="grid grid-cols-3 gap-4">
+        {% for equipment in equipments %}
+        <div class="card hover:shadow-lg transition-shadow duration-300">
+            <img src="{{ equipment.image_url }}" alt="{{ equipment.name }}" class="w-full">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold">{{ equipment.name }}</h2>
+                <p>{{ equipment.description }}</p>
+                <p class="text-sm text-gray-600">Технические характеристики: {{ equipment.specs }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

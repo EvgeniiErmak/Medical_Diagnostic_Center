@@ -47,7 +47,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="specialist",
             name="languages",
-            field=models.CharField(blank=True, max_length=100, verbose_name="языки"),
+            field=models.CharField(
+                blank=True, max_length=100, verbose_name="языки"),
         ),
         migrations.AlterField(
             model_name="specialist",
@@ -67,7 +68,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="specialist",
             name="specialization",
-            field=models.CharField(max_length=100, verbose_name="специализация"),
+            field=models.CharField(
+                max_length=100, verbose_name="специализация"),
         ),
         migrations.AlterField(
             model_name="specialist",

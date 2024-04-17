@@ -17,7 +17,8 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserLoginForm(AuthenticationForm):
-    remember_me = forms.BooleanField(required=False, label='Запомни меня', widget=forms.CheckboxInput())
+    remember_me = forms.BooleanField(
+        required=False, label='Запомни меня', widget=forms.CheckboxInput())
 
     class Meta:
         model = CustomUser
@@ -27,7 +28,8 @@ class UserLoginForm(AuthenticationForm):
 class UserProfileForm(forms.ModelForm):
     date_of_birth = forms.DateField(
         label='Дата рождения',
-        widget=SelectDateWidget(years=range(1900, datetime.datetime.now().year+1)),
+        widget=SelectDateWidget(years=range(
+            1900, datetime.datetime.now().year+1)),
         required=False
     )
 

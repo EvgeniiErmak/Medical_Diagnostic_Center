@@ -6,16 +6,23 @@ from .models import Consultation, ConsultationSlot, ConsultationSession
 
 
 class ConsultationSlotAdmin(admin.ModelAdmin):
-    list_display = ('specialist', 'start_time', 'end_time', 'is_booked')  # Убедитесь, что эти атрибуты существуют
-    list_filter = ('is_booked', 'specialist__specialization')  # Используйте корректные поля для фильтрации
-    search_fields = ('specialist__user__first_name', 'specialist__user__last_name', 'start_time')
+    # Убедитесь, что эти атрибуты существуют
+    list_display = ('specialist', 'start_time', 'end_time', 'is_booked')
+    # Используйте корректные поля для фильтрации
+    list_filter = ('is_booked', 'specialist__specialization')
+    search_fields = ('specialist__user__first_name',
+                     'specialist__user__last_name', 'start_time')
 
 
 class ConsultationAdmin(admin.ModelAdmin):
-    list_display = ('patient', 'get_start_time', 'get_end_time', 'is_booked', 'consultation_type', 'issue', 'video_call_link')  # Добавлено video_call_link
-    list_editable = ('video_call_link',)  # Позволяет редактировать поле прямо в списке
-    search_fields = ('patient__username', 'patient__first_name', 'patient__last_name', 'consultation_type')
-    list_filter = ('consultation_type', 'slot__is_booked', 'slot__specialist__specialization')
+    list_display = ('patient', 'get_start_time', 'get_end_time', 'is_booked',
+                    'consultation_type', 'issue', 'video_call_link')  # Добавлено video_call_link
+    # Позволяет редактировать поле прямо в списке
+    list_editable = ('video_call_link',)
+    search_fields = ('patient__username', 'patient__first_name',
+                     'patient__last_name', 'consultation_type')
+    list_filter = ('consultation_type', 'slot__is_booked',
+                   'slot__specialist__specialization')
 
     def get_start_time(self, obj):
         return obj.slot.start_time if obj.slot else "No slot assigned"

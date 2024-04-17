@@ -13,11 +13,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="customuser",
             name="diagnostic_history",
-            field=models.TextField(blank=True, verbose_name="История диагностик"),
+            field=models.TextField(
+                blank=True, verbose_name="История диагностик"),
         ),
         migrations.AddField(
             model_name="customuser",
             name="medical_data",
-            field=models.TextField(blank=True, verbose_name="Медицинские данные"),
+            field=models.TextField(
+                blank=True, verbose_name="Медицинские данные"),
         ),
     ]

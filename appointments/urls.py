@@ -11,6 +11,8 @@ urlpatterns = [
     path('book/', views.book_appointment, name='book_appointment_by_query'),
     path('view/', views.view_appointments, name='view_appointments'),
     path('fetch_slots/', views.fetch_slots, name='fetch_slots'),
-    path('cancel/<int:appointment_id>/', views.cancel_appointment, name='cancel_appointment'),
-    path('specialist/<int:specialist_id>/free_slots/', views.specialist_free_slots, name='specialist_free_slots'),
+    path('cancel/<int:appointment_id>/',
+         views.cancel_appointment, name='cancel_appointment'),
+    path('specialist/<int:specialist_id>/free_slots/',
+         views.specialist_free_slots, name='specialist_free_slots'),
 ]

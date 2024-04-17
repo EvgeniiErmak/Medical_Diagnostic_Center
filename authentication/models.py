@@ -30,19 +30,30 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    last_name = models.CharField(max_length=150, default='', verbose_name='Фамилия')
-    first_name = models.CharField(max_length=150, default='', verbose_name='Имя')
-    middle_name = models.CharField(max_length=150, default='', verbose_name='Отчество', blank=True)
-    date_of_birth = models.DateField(verbose_name='Дата рождения', null=True, blank=True)
-    age = models.PositiveIntegerField(verbose_name='Возраст', null=True, blank=True)
-    gender = models.CharField(max_length=10, choices=(('Мужской', 'Мужской'), ('Женский', 'Женский')), verbose_name="Пол", null=True, blank=True)
-    citizenship = models.CharField(max_length=150, verbose_name='Гражданство', blank=True)
-    residence = models.CharField(max_length=255, verbose_name='Место жительства', blank=True)
-    medical_data = models.TextField(verbose_name="Медицинские данные", blank=True)
-    diagnostic_history = models.TextField(verbose_name="История диагностик", blank=True)
+    last_name = models.CharField(
+        max_length=150, default='', verbose_name='Фамилия')
+    first_name = models.CharField(
+        max_length=150, default='', verbose_name='Имя')
+    middle_name = models.CharField(
+        max_length=150, default='', verbose_name='Отчество', blank=True)
+    date_of_birth = models.DateField(
+        verbose_name='Дата рождения', null=True, blank=True)
+    age = models.PositiveIntegerField(
+        verbose_name='Возраст', null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=(
+        ('Мужской', 'Мужской'), ('Женский', 'Женский')), verbose_name="Пол", null=True, blank=True)
+    citizenship = models.CharField(
+        max_length=150, verbose_name='Гражданство', blank=True)
+    residence = models.CharField(
+        max_length=255, verbose_name='Место жительства', blank=True)
+    medical_data = models.TextField(
+        verbose_name="Медицинские данные", blank=True)
+    diagnostic_history = models.TextField(
+        verbose_name="История диагностик", blank=True)
     email = models.EmailField(_('email address'), unique=True)
     is_staff = models.BooleanField(_('staff status'), default=False)
-    is_active = models.BooleanField(_('active'), default=False)  # По умолчанию пользователь не активирован
+    # По умолчанию пользователь не активирован
+    is_active = models.BooleanField(_('active'), default=False)
     activation_date = models.DateTimeField(default=timezone.now)
 
     objects = CustomUserManager()
@@ -56,7 +67,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def get_full_name(self):
         """Возвращает полное имя пользователя."""
         full_name = f'{self.first_name} {self.middle_name} {self.last_name}'.strip()
-        return full_name.replace("  ", " ")  # Убедимся, что лишние пробелы удалены
+        # Убедимся, что лишние пробелы удалены
+        return full_name.replace("  ", " ")
 
     def get_short_name(self):
         """Возвращает краткое имя пользователя, обычно первое имя."""

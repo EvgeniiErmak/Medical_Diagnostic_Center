@@ -5,7 +5,8 @@ from django.conf import settings
 
 
 class Feedback(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='feedbacks')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE, related_name='feedbacks')
     title = models.CharField(max_length=255)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

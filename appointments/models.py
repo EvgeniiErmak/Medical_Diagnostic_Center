@@ -8,7 +8,9 @@ from clinic.models import Specialist
 class AppointmentSlot(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    specialist = models.ForeignKey('clinic.Specialist', on_delete=models.CASCADE, related_name='appointment_slots', default=2)  # предполагаем, что существует специалист с ID=1
+    # предполагаем, что существует специалист с ID=1
+    specialist = models.ForeignKey(
+        'clinic.Specialist', on_delete=models.CASCADE, related_name='appointment_slots', default=2)
     is_booked = models.BooleanField(default=False)
 
     def __str__(self):
@@ -16,8 +18,10 @@ class AppointmentSlot(models.Model):
 
 
 class Appointment(models.Model):
-    patient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='appointments')
-    slot = models.OneToOneField(AppointmentSlot, on_delete=models.CASCADE, related_name='appointment')
+    patient = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='appointments')
+    slot = models.OneToOneField(
+        AppointmentSlot, on_delete=models.CASCADE, related_name='appointment')
     issue = models.TextField()
 
     def __str__(self):

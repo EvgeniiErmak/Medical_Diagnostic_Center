@@ -12,7 +12,8 @@ from django.utils import timezone
 
 @login_required
 def cancel_appointment(request, appointment_id):
-    appointment = get_object_or_404(Appointment, id=appointment_id, patient=request.user)
+    appointment = get_object_or_404(
+        Appointment, id=appointment_id, patient=request.user)
     if appointment:
         # Проверяем, не прошло ли уже время слота
         if timezone.now() < appointment.slot.start_time:
@@ -20,9 +21,11 @@ def cancel_appointment(request, appointment_id):
             slot.is_booked = False
             slot.save()
             appointment.delete()
-            messages.success(request, 'Ваша запись на прием была успешно отменена.')
+            messages.success(
+                request, 'Ваша запись на прием была успешно отменена.')
         else:
-            messages.error(request, 'Отмена записи невозможна, так как указанное время уже прошло.')
+            messages.error(
+                request, 'Отмена записи невозможна, так как указанное время уже прошло.')
     else:
         messages.error(request, 'Не удалось найти запись на прием для отмены.')
     return redirect('appointments:appointments_list')
@@ -32,14 +35,16 @@ def cancel_appointment(request, appointment_id):
 def fetch_slots(request):
     """ Fetch available slots and return them in JSON format for FullCalendar. """
     slots = AppointmentSlot.objects.filter(is_booked=False)
-    slots_data = [{'id': slot.id, 'start_time': slot.start_time.isoformat(), 'end_time': slot.end_time.isoformat()} for slot in slots]
+    slots_data = [{'id': slot.id, 'start_time': slot.start_time.isoformat(
+    ), 'end_time': slot.end_time.isoformat()} for slot in slots]
     return JsonResponse(slots_data, safe=False)
 
 
 @login_required
 def appointments_list(request):
     """ Display a list of appointments for the logged-in user. """
-    appointments = Appointment.objects.filter(patient=request.user).select_related('slot')
+    appointments = Appointment.objects.filter(
+        patient=request.user).select_related('slot')
     return render(request, 'appointments/appointments_list.html', {'appointments': appointments})
 
 
@@ -72,12 +77,14 @@ def book_appointment(request, slot_id):
 @login_required
 def view_appointments(request):
     """ Display all appointments for the logged-in user. """
-    appointments = Appointment.objects.filter(patient=request.user).select_related('slot')
+    appointments = Appointment.objects.filter(
+        patient=request.user).select_related('slot')
     return render(request, 'appointments/view_appointments.html', {'appointments': appointments})
 
 
 @login_required
 def specialist_free_slots(request, specialist_id):
     specialist = get_object_or_404(Specialist, pk=specialist_id)
-    free_slots = AppointmentSlot.objects.filter(specialist=specialist, is_booked=False)
+    free_slots = AppointmentSlot.objects.filter(
+        specialist=specialist, is_booked=False)
     return render(request, 'appointments/specialist_free_slots.html', {'specialist': specialist, 'free_slots': free_slots})

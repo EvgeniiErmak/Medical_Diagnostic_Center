@@ -39,12 +39,14 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="customuser",
             name="first_name",
-            field=models.CharField(default="", max_length=150, verbose_name="Имя"),
+            field=models.CharField(
+                default="", max_length=150, verbose_name="Имя"),
         ),
         migrations.AddField(
             model_name="customuser",
             name="last_name",
-            field=models.CharField(default="", max_length=150, verbose_name="Фамилия"),
+            field=models.CharField(
+                default="", max_length=150, verbose_name="Фамилия"),
         ),
         migrations.AddField(
             model_name="customuser",

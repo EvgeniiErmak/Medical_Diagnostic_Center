@@ -25,7 +25,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="customuser",
             name="date_of_birth",
-            field=models.DateField(blank=True, null=True, verbose_name="Дата рождения"),
+            field=models.DateField(blank=True, null=True,
+                                   verbose_name="Дата рождения"),
         ),
         migrations.AddField(
             model_name="customuser",

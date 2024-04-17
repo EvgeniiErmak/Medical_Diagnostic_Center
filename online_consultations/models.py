@@ -13,9 +13,12 @@ class Consultation(models.Model):
         ('emergency', 'Экстренная консультация')
     )
 
-    patient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='consultations')
-    consultation_type = models.CharField(max_length=100, choices=CONSULTATION_TYPES, default='general')
-    slot = models.OneToOneField('ConsultationSlot', on_delete=models.CASCADE, related_name='consultation', null=True)
+    patient = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='consultations')
+    consultation_type = models.CharField(
+        max_length=100, choices=CONSULTATION_TYPES, default='general')
+    slot = models.OneToOneField(
+        'ConsultationSlot', on_delete=models.CASCADE, related_name='consultation', null=True)
     issue = models.TextField(default='Не оставил сообщение')
     video_call_link = models.URLField(blank=True, null=True)
 
@@ -29,7 +32,8 @@ class Consultation(models.Model):
 class ConsultationSlot(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    specialist = models.ForeignKey(Specialist, on_delete=models.CASCADE, related_name='consultation_slots')
+    specialist = models.ForeignKey(
+        Specialist, on_delete=models.CASCADE, related_name='consultation_slots')
     is_booked = models.BooleanField(default=False)
 
     def __str__(self):
@@ -37,7 +41,8 @@ class ConsultationSlot(models.Model):
 
 
 class ConsultationSession(models.Model):
-    consultation = models.OneToOneField(Consultation, on_delete=models.CASCADE, related_name='session')
+    consultation = models.OneToOneField(
+        Consultation, on_delete=models.CASCADE, related_name='session')
     offer = models.TextField()
     answer = models.TextField(blank=True, null=True)
 

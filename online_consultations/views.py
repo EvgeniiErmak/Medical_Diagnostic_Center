@@ -46,7 +46,8 @@ def book_consultation(request, slot_id):
                 consultation.save()
                 slot.is_booked = True
                 slot.save()
-                messages.success(request, 'Вы успешно записаны на консультацию.')
+                messages.success(
+                    request, 'Вы успешно записаны на консультацию.')
                 return redirect('online_consultations:consultation_list')
             else:
                 messages.error(request, 'Этот слот уже забронирован.')
@@ -60,22 +61,26 @@ def book_consultation(request, slot_id):
 
 @login_required
 def view_consultations(request):
-    consultations = Consultation.objects.filter(patient=request.user).select_related('slot')
+    consultations = Consultation.objects.filter(
+        patient=request.user).select_related('slot')
     return render(request, 'online_consultations/consultation_list.html', {'consultations': consultations})
 
 
 @login_required
 def cancel_consultation(request, consultation_id):
-    consultation = get_object_or_404(Consultation, id=consultation_id, patient=request.user)
+    consultation = get_object_or_404(
+        Consultation, id=consultation_id, patient=request.user)
     if consultation:
         if timezone.now() < consultation.slot.start_time:
             slot = consultation.slot
             slot.is_booked = False
             slot.save()
             consultation.delete()
-            messages.success(request, 'Ваша консультация была успешно отменена.')
+            messages.success(
+                request, 'Ваша консультация была успешно отменена.')
         else:
-            messages.error(request, 'Отмена консультации невозможна, так как указанное время уже прошло.')
+            messages.error(
+                request, 'Отмена консультации невозможна, так как указанное время уже прошло.')
     else:
         messages.error(request, 'Не удалось найти консультацию для отмены.')
     return redirect('online_consultations:consultation_list')
@@ -84,7 +89,8 @@ def cancel_consultation(request, consultation_id):
 @login_required
 def specialist_free_slots(request, specialist_id):
     specialist = get_object_or_404(Specialist, pk=specialist_id)
-    free_slots = ConsultationSlot.objects.filter(specialist=specialist, is_booked=False)
+    free_slots = ConsultationSlot.objects.filter(
+        specialist=specialist, is_booked=False)
     return render(request, 'online_consultations/specialist_free_slots.html', {
         'specialist': specialist,
         'free_slots': free_slots

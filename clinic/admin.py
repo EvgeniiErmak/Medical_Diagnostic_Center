@@ -8,12 +8,16 @@ from .models import Equipment
 
 
 class SpecialistAdmin(admin.ModelAdmin):
-    list_display = ('user', 'full_name', 'get_age', 'specialization', 'experience_years')  # Отображаем поля в админке
-    search_fields = ('user__first_name', 'user__last_name', 'specialization')  # Поиск по имени и специализации
-    list_filter = ('specialization', 'experience_years')  # Фильтры сбоку в админке
+    list_display = ('user', 'full_name', 'get_age', 'specialization',
+                    'experience_years')  # Отображаем поля в админке
+    search_fields = ('user__first_name', 'user__last_name',
+                     'specialization')  # Поиск по имени и специализации
+    # Фильтры сбоку в админке
+    list_filter = ('specialization', 'experience_years')
 
     def full_name(self, obj):
-        return obj.user.get_full_name()  # Предполагаем, что у модели user есть метод get_full_name()
+        # Предполагаем, что у модели user есть метод get_full_name()
+        return obj.user.get_full_name()
     full_name.short_description = _('Полное имя')  # Заголовок для колонки
 
     def get_age(self, obj):

@@ -41,7 +41,8 @@ def send_activation_email(user, request):
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     token = account_activation_token.make_token(user)
     activation_link = request.build_absolute_uri(
-        reverse('authentication:activate', kwargs={'uidb64': uid, 'token': token})
+        reverse('authentication:activate', kwargs={
+                'uidb64': uid, 'token': token})
     )
     subject = 'Активация аккаунта'
     message = f'Здравствуйте, {user.first_name}! Пожалуйста, активируйте свой аккаунт, перейдя по следующей ссылке: {activation_link}'
@@ -55,8 +56,10 @@ def register(request):
             user = form.save(commit=False)
             user.is_active = False  # Пользователь не активен до подтверждения по email
             user.save()
-            send_activation_email(user, request)  # Отправка письма для активации
-            messages.info(request, 'Пожалуйста, подтвердите вашу регистрацию, проверив указанную электронную почту.')
+            # Отправка письма для активации
+            send_activation_email(user, request)
+            messages.info(
+                request, 'Пожалуйста, подтвердите вашу регистрацию, проверив указанную электронную почту.')
             return redirect('authentication:login')
     else:
         form = UserRegisterForm()
@@ -75,7 +78,8 @@ def user_login(request):
                 login(request, user)
                 if remember_me:
                     # Session will expire in 30 days
-                    request.session.set_expiry(30 * 24 * 60 * 60)  # 30 days in seconds
+                    request.session.set_expiry(
+                        30 * 24 * 60 * 60)  # 30 days in seconds
                 else:
                     # Session will expire when the user closes the browser
                     request.session.set_expiry(0)
@@ -90,12 +94,14 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('index')  # Перенаправление на главную страницу после выхода
+    # Перенаправление на главную страницу после выхода
+    return redirect('index')
 
 
 @login_required(login_url='/authentication/login/')
 def dashboard(request):
-    edit = request.GET.get('edit', 'false') == 'true'  # Проверка параметра запроса для редактирования
+    # Проверка параметра запроса для редактирования
+    edit = request.GET.get('edit', 'false') == 'true'
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=request.user)
         if form.is_valid():

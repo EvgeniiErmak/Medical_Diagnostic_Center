@@ -16,19 +16,22 @@ from django.core.asgi import get_asgi_application
 from django.urls import path
 from online_consultations import consumers
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Medical_Diagnostic_Center.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE",
+                      "Medical_Diagnostic_Center.settings")
 
 django_asgi_app = get_asgi_application()
 
 websocket_urlpatterns = [
-    path('ws/consultation/<int:consultation_id>/', consumers.ConsultationConsumer.as_asgi()),
+    path('ws/consultation/<int:consultation_id>/',
+         consumers.ConsultationConsumer.as_asgi()),
 ]
 
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
     "websocket": AuthMiddlewareStack(
         URLRouter([
-            path('ws/consultation/<int:consultation_id>/', consumers.ConsultationConsumer.as_asgi()),
+            path('ws/consultation/<int:consultation_id>/',
+                 consumers.ConsultationConsumer.as_asgi()),
         ])
     ),
 })

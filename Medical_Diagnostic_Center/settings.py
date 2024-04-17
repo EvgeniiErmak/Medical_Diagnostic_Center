@@ -14,6 +14,13 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
+import environ
+from dotenv import load_dotenv
+load_dotenv()
+
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,10 +30,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-$zk1yho5vm!v%bj&an*v@!ku=by_0z)ypv56e0x_erdb1k8q8m"
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -48,6 +55,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "channels",
     "feedback",
+    "drf_yasg",
     "clinic",
 ]
 
@@ -69,8 +77,7 @@ ROOT_URLCONF = "Medical_Diagnostic_Center.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates']
-        ,
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -85,6 +92,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "Medical_Diagnostic_Center.wsgi.application"
 
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -92,11 +102,11 @@ WSGI_APPLICATION = "Medical_Diagnostic_Center.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Medical_Diagnostic_Center',  # Имя вашей базы данных
-        'USER': 'postgres',  # Имя пользователя БД
-        'PASSWORD': '12345',  # Пароль пользователя БД
-        'HOST': 'localhost',  # Адрес сервера БД, 'localhost' если БД на том же сервере
-        'PORT': '5432',  # Порт PostgreSQL, по умолчанию 5432
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
     }
 }
 
@@ -156,8 +166,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'djermak2@gmail.com'  # Замените на ваш реальный адрес Gmail
-EMAIL_HOST_PASSWORD = 'owkbrlfufhkjpypl'  # Замените на ваш пароль
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_TIMEOUT = 50
 
 # Настройки Channels
@@ -166,7 +176,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+            "hosts": [(env('REDIS_HOST'), env.int('REDIS_PORT'))],
         },
     },
 }

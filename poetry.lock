@@ -692,13 +692,13 @@ saml = ["python3-saml (>=1.15.0,<2.0.0)"]
 
 [[package]]
 name = "django-bootstrap4"
-version = "24.2"
+version = "24.3"
 description = "Django extensions by Zostera"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "django_bootstrap4-24.2-py3-none-any.whl", hash = "sha256:041f3aa239d0ebbbd1d54aa1fe83b81242e9b160ab68a16a94b36d9b1565b92c"},
-    {file = "django_bootstrap4-24.2.tar.gz", hash = "sha256:9ad1f0ca62e3c0cf2b26d6e1d433d78a41ce4d4accb472c46f634c769607d2e0"},
+    {file = "django_bootstrap4-24.3-py3-none-any.whl", hash = "sha256:b555d87740a571036f100ad6026b1f62aabcb913404fb7f08f521881019b14bc"},
+    {file = "django_bootstrap4-24.3.tar.gz", hash = "sha256:819bc0ba7b25fcdeb12eb04353962436dbe95b228ba4cf4b49f5d3fee53692e1"},
 ]
 
 [package.dependencies]
@@ -1908,13 +1908,13 @@ files = [
 
 [[package]]
 name = "sphinx"
-version = "7.3.0"
+version = "7.3.6"
 description = "Python documentation generator"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "sphinx-7.3.0-py3-none-any.whl", hash = "sha256:893d33cf0247883a8afd0dbd79c0e0cba587022fd32cc19b8df8343d478781b8"},
-    {file = "sphinx-7.3.0.tar.gz", hash = "sha256:7ad02a0677d43cbaab3f9477355a412e449472d3f4693e2df3842e7ccb7ae7c8"},
+    {file = "sphinx-7.3.6-py3-none-any.whl", hash = "sha256:d6c09acd42094fcd96a9299c1b32b2dafe82d667fdd6e532e5978443ad074c2a"},
+    {file = "sphinx-7.3.6.tar.gz", hash = "sha256:fc9f3d13fed5c9a0e677d368090e209899ce5d0081eb552b657e2923e57517f0"},
 ]
 
 [package.dependencies]

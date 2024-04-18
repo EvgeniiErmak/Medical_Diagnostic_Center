@@ -1,3 +1,6 @@
+### README.md
+
+```markdown
 # Medical Diagnostic Center
 
 **Medical Diagnostic Center** — это веб-платформа для управления медицинскими услугами, которая позволяет пациентам записываться на прием к специалистам, просматривать медицинские ресурсы и получать онлайн-консультации.
@@ -86,5 +89,36 @@ poetry run python manage.py test
 ```bash
 poetry run python manage.py createsuperuser
 ```
+
+## Фикстуры и Дампы
+
+Для создания и восстановления фикстур данных используйте скрипты в папке `scripts`, которые обеспечивают выгрузку данных из базы в JSON формате:
+
+```bash
+poetry run dump-appointments
+poetry run dump-authentication
+poetry run dump-clinic
+poetry run dump-educational-resources
+poetry run dump-feedback
+poetry run dump-online-consultations
+```
+
+Для восстановления данных используйте:
+
+```bash
+poetry run loaddata path_to_fixture
+```
+
+## Об
+
+ авторе
+
+**Евгений Ермак**
+
+Тел.: +7 930-290-99-80
+
+Telegram: [https://t.me/DJErmak3000](https://t.me/DJErmak3000)
+
+E-mail: [ew.ermak5000@mail.ru](mailto:ew.ermak5000@mail.ru)
 
 ---

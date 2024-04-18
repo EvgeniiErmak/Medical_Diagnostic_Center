@@ -44,3 +44,11 @@ coverage = "^7.4.4"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+dump-appointments = "scripts.dump_appointments:main"
+dump-authentication = "scripts.dump_authentication:main"
+dump-clinic = "scripts.dump_clinic:main"
+dump-educational-resources = "scripts.dump_educational_resources:main"
+dump-feedback = "scripts.dump_feedback:main"
+dump-online-consultations = "scripts.dump_online_consultations:main"

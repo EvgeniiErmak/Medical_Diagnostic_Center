@@ -1,6 +1,3 @@
-### README.md
-
-```markdown
 # Medical Diagnostic Center
 
 **Medical Diagnostic Center** — это веб-платформа для управления медицинскими услугами, которая позволяет пациентам записываться на прием к специалистам, просматривать медицинские ресурсы и получать онлайн-консультации.
@@ -90,35 +87,40 @@ poetry run python manage.py test
 poetry run python manage.py createsuperuser
 ```
 
-## Фикстуры и Дампы
+### Фикстуры и Дампы
 
-Для создания и восстановления фикстур данных используйте скрипты в папке `scripts`, которые обеспечивают выгрузку данных из базы в JSON формате:
+Для облегчения процесса развертывания и тестирования проекта используются фикстуры — файлы, содержащие данные для импорта в базу данных. Эти данные могут включать информацию о пользователях, настройках приложения, или другие данные, необходимые для начальной настройки системы.
+
+#### Создание фикстур
+
+Фикстуры создаются с помощью команды `dumpdata` фреймворка Django. Для каждого модуля проекта созданы специальные скрипты, позволяющие выгружать данные в формате JSON. Эти скрипты находятся в каталоге `scripts` и запускаются через менеджер зависимостей Poetry.
+
+Пример команды для создания фикстур:
 
 ```bash
 poetry run dump-appointments
-poetry run dump-authentication
-poetry run dump-clinic
-poetry run dump-educational-resources
-poetry run dump-feedback
-poetry run dump-online-consultations
 ```
 
-Для восстановления данных используйте:
+Скрипты для выгрузки данных из других модулей включают `dump-authentication`, `dump-clinic`, и т.д.
+
+#### Восстановление данных из фикстур
+
+Для восстановления данных из фикстур используется команда `loaddata` фреймворка Django:
 
 ```bash
-poetry run loaddata path_to_fixture
+poetry run python manage.py loaddata path_to_fixture_file
 ```
 
-## Об
+Это позволяет быстро восстанавливать необходимое состояние базы данных из ранее сохраненных данных.
 
- авторе
+---
+
+### Автор проекта
 
 **Евгений Ермак**
 
-Тел.: +7 930-290-99-80
-
-Telegram: [https://t.me/DJErmak3000](https://t.me/DJErmak3000)
-
-E-mail: [ew.ermak5000@mail.ru](mailto:ew.ermak5000@mail.ru)
+- **Телефон:** +7 930-290-99-80
+- **Telegram:** [DJErmak3000](https://t.me/DJErmak3000)
+- **E-mail:** [ew.ermak5000@mail.ru](mailto:ew.ermak5000@mail.ru)
 
 ---

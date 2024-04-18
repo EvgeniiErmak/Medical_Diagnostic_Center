@@ -1,3 +1,4 @@
+.
 ├── Medical_Diagnostic_Center
 │   ├── __init__.py
 │   ├── admin.py
@@ -5,6 +6,7 @@
 │   ├── settings.py
 │   ├── urls.py
 │   └── wsgi.py
+├── README.md
 ├── appointments
 │   ├── __init__.py
 │   ├── admin.py
@@ -61,6 +63,15 @@
 │   └── views.py
 ├── db.sqlite3
 ├── db_backup.json
+├── docs
+│   ├── Makefile
+│   ├── build
+│   ├── make.bat
+│   └── source
+│       ├── _static
+│       ├── _templates
+│       ├── conf.py
+│       └── index.rst
 ├── educational_resources
 │   ├── __init__.py
 │   ├── admin.py
@@ -88,6 +99,19 @@
 │   ├── tests.py
 │   ├── urls.py
 │   └── views.py
+├── fixtures
+│   ├── appointments
+│   │   └── appointments.json
+│   ├── authentication
+│   │   └── authentication.json
+│   ├── clinic
+│   │   └── clinic.json
+│   ├── educational_resources
+│   │   └── educational_resources.json
+│   ├── feedback
+│   │   └── feedback.json
+│   └── online_consultations
+│       └── online_consultations.json
 ├── manage.py
 ├── online_consultations
 │   ├── __init__.py
@@ -110,11 +134,20 @@
 ├── poetry.lock
 ├── project_structure.txt
 ├── pyproject.toml
+├── pytest.ini
 ├── requirements.txt
+├── scripts
+│   ├── __init__.py
+│   ├── dump_appointments.py
+│   ├── dump_authentication.py
+│   ├── dump_clinic.py
+│   ├── dump_educational_resources.py
+│   ├── dump_feedback.py
+│   └── dump_online_consultations.py
 └── templates
     ├── base.html
     ├── contacts.html
     ├── index.html
     └── privacy_policy.html
 
-21 directories, 98 files
+34 directories, 117 files
